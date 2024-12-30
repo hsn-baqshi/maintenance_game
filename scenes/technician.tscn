@@ -1,0 +1,96 @@
+[gd_scene load_steps=9 format=3 uid="uid://c418k6jh0lbut"]
+
+[ext_resource type="Script" path="res://Scripts/technician.gd" id="1_c7asy"]
+[ext_resource type="Texture2D" uid="uid://b3ir1fwa0lp8y" path="res://assets/base_run_strip8.png" id="1_h1dk7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ru6ot"]
+size = Vector2(9, 14)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gt2ey"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0.8, 0.8, 1)
+border_blend = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8g006"]
+bg_color = Color(2.69532e-06, 0.666195, 0.812362, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="Animation" id="Animation_dulyh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_hq2v2"]
+resource_name = "Walk Down"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.366667, 0.5, 0.6, 0.7, 0.8, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 6]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_t2u8p"]
+_data = {
+"RESET": SubResource("Animation_dulyh"),
+"Walk Down": SubResource("Animation_hq2v2")
+}
+
+[node name="technician" type="CharacterBody2D" node_paths=PackedStringArray("box", "anim", "spritee") groups=["units"]]
+script = ExtResource("1_c7asy")
+box = NodePath("Box")
+anim = NodePath("AnimationPlayer")
+spritee = NodePath("Sprite2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, -1)
+shape = SubResource("RectangleShape2D_ru6ot")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_h1dk7")
+hframes = 8
+
+[node name="Box" type="Panel" parent="."]
+offset_left = -7.0
+offset_top = -12.0
+offset_right = 9.0
+offset_bottom = 7.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_gt2ey")
+
+[node name="Panel" type="Panel" parent="Box"]
+layout_mode = 0
+offset_top = -6.0
+offset_right = 16.0
+offset_bottom = -1.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_8g006")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_t2u8p")
+}
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]
