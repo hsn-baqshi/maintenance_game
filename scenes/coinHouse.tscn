@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://2gbsojdefxp3"]
+
+[ext_resource type="Texture2D" uid="uid://7bnjvljpbrg0" path="res://assets/barracks.png" id="1_lxjb0"]
+[ext_resource type="Script" path="res://Scripts/coin_house.gd" id="1_xuo2w"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_65t5l"]
+size = Vector2(24, 40)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lv3i4"]
+bg_color = Color(0.554364, 0.930641, 0.829778, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sp83k"]
+bg_color = Color(0.73219, 0.552252, 0.496227, 1)
+
+[node name="coinHouse" type="StaticBody2D" node_paths=PackedStringArray("bar", "timer")]
+y_sort_enabled = true
+script = ExtResource("1_xuo2w")
+bar = NodePath("ProgressBar")
+timer = NodePath("Timer")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 8)
+shape = SubResource("RectangleShape2D_65t5l")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
+
+[node name="Barracks" type="Sprite2D" parent="."]
+self_modulate = Color(1, 0.607843, 0, 1)
+texture = ExtResource("1_lxjb0")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = -13.0
+offset_top = -35.0
+offset_right = 12.0
+offset_bottom = -32.0
+theme_override_styles/background = SubResource("StyleBoxFlat_lv3i4")
+theme_override_styles/fill = SubResource("StyleBoxFlat_sp83k")
+value = 50.0
+show_percentage = false
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

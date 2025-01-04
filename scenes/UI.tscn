@@ -2,12 +2,19 @@
 
 [ext_resource type="Script" path="res://Scripts/ui.gd" id="1_tbv44"]
 
-[node name="UI" type="CanvasLayer" node_paths=PackedStringArray("label")]
+[node name="UI" type="CanvasLayer" node_paths=PackedStringArray("label", "Gold")]
 script = ExtResource("1_tbv44")
-label = NodePath("Label")
+label = NodePath("Wood")
+Gold = NodePath("Gold")
 
-[node name="Label" type="Label" parent="."]
+[node name="Wood" type="Label" parent="."]
 offset_left = 41.0
 offset_top = 16.0
 offset_right = 81.0
 offset_bottom = 39.0
+
+[node name="Gold" type="Label" parent="."]
+offset_left = 127.0
+offset_top = 15.0
+offset_right = 167.0
+offset_bottom = 38.0

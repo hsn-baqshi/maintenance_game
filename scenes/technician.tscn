@@ -1,10 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://c418k6jh0lbut"]
+[gd_scene load_steps=10 format=3 uid="uid://c418k6jh0lbut"]
 
 [ext_resource type="Script" path="res://Scripts/technician.gd" id="1_c7asy"]
 [ext_resource type="Texture2D" uid="uid://b3ir1fwa0lp8y" path="res://assets/base_run_strip8.png" id="1_h1dk7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ru6ot"]
-size = Vector2(9, 14)
+size = Vector2(9, 7)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gt2ey"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -54,20 +54,37 @@ tracks/0/keys = {
 "values": [0, 1, 2, 3, 4, 5, 6, 6]
 }
 
+[sub_resource type="Animation" id="Animation_nc0dw"]
+resource_name = "idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 1,
+"values": []
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_t2u8p"]
 _data = {
 "RESET": SubResource("Animation_dulyh"),
-"Walk Down": SubResource("Animation_hq2v2")
+"Walk Down": SubResource("Animation_hq2v2"),
+"idle": SubResource("Animation_nc0dw")
 }
 
-[node name="technician" type="CharacterBody2D" node_paths=PackedStringArray("box", "anim", "spritee") groups=["units"]]
+[node name="technician" type="CharacterBody2D" node_paths=PackedStringArray("box", "anim", "spritee")]
+y_sort_enabled = true
 script = ExtResource("1_c7asy")
 box = NodePath("Box")
 anim = NodePath("AnimationPlayer")
 spritee = NodePath("Sprite2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0.5, -1)
+position = Vector2(0.5, 2.5)
 shape = SubResource("RectangleShape2D_ru6ot")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

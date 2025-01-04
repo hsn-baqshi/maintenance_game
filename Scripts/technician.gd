@@ -10,6 +10,7 @@ var speed = 50
 
 func _ready():
 	set_selected(selected)
+	add_to_group("units",true)
 	
 func set_selected(value):
 	selected = value
@@ -25,7 +26,7 @@ func _input(event):
 	if event.is_action_released("RightClick"):
 		follow_cursor = false
 		
-		
+
 func _physics_process(delta):
 	if follow_cursor:
 		if selected:
@@ -39,6 +40,8 @@ func _physics_process(delta):
 	
 
 func _process(delta):
+	if selected :
+		Game.building_cursor("technician")
 	if velocity.x > 0 :
 		spritee.flip_h = false
 	elif velocity.x < 0 :

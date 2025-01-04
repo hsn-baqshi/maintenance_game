@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=3 uid="uid://cihi32vxnwwcs"]
+
+[ext_resource type="Script" path="res://Global/spawn_unit.gd" id="1_cwdsu"]
+[ext_resource type="Texture2D" uid="uid://b3ir1fwa0lp8y" path="res://assets/base_run_strip8.png" id="2_73jaq"]
+
+[node name="SpawnUnit" type="Node2D"]
+script = ExtResource("1_cwdsu")
+
+[node name="Panel" type="Panel" parent="."]
+offset_right = 184.0
+offset_bottom = 147.0
+
+[node name="Label" type="Label" parent="."]
+offset_left = 20.0
+offset_top = 6.0
+offset_right = 150.0
+offset_bottom = 29.0
+text = "spawn this unit ?"
+
+[node name="Yes" type="Button" parent="."]
+offset_left = 8.0
+offset_top = 108.0
+offset_right = 43.0
+offset_bottom = 139.0
+text = "Yes"
+
+[node name="No" type="Button" parent="."]
+offset_left = 142.0
+offset_top = 108.0
+offset_right = 173.0
+offset_bottom = 139.0
+text = "No"
+
+[node name="BaseRunStrip8" type="Sprite2D" parent="."]
+position = Vector2(112, 81)
+scale = Vector2(3, 3)
+texture = ExtResource("2_73jaq")
+hframes = 7
+
+[connection signal="pressed" from="Yes" to="." method="_on_yes_pressed"]
+[connection signal="pressed" from="No" to="." method="_on_no_pressed"]
