@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://bxyx85h5m304r"]
+[gd_scene load_steps=6 format=3 uid="uid://bxyx85h5m304r"]
 
 [ext_resource type="Texture2D" uid="uid://7bnjvljpbrg0" path="res://assets/barracks.png" id="1_2gmxi"]
 [ext_resource type="Script" path="res://Scripts/barracks.gd" id="1_3tmn6"]
+[ext_resource type="Texture2D" uid="uid://bwgcgb8ueyueh" path="res://assets/building_cursor.png" id="3_7jgi1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h875d"]
 size = Vector2(24, 36)
@@ -15,16 +16,18 @@ border_width_bottom = 2
 border_color = Color(0, 0.8, 0.8, 1)
 border_blend = true
 
-[node name="Barracks" type="StaticBody2D" node_paths=PackedStringArray("select")]
+[node name="Barracks" type="StaticBody2D" node_paths=PackedStringArray("select", "age_label")]
 input_pickable = true
 script = ExtResource("1_3tmn6")
 select = NodePath("Box")
+age_label = NodePath("Label")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 10)
 shape = SubResource("RectangleShape2D_h875d")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+y_sort_enabled = true
 texture = ExtResource("1_2gmxi")
 
 [node name="Box" type="Panel" parent="."]
@@ -34,6 +37,18 @@ offset_right = 16.0
 offset_bottom = 30.0
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_7lppg")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -16.0
+offset_top = -47.0
+offset_right = 24.0
+offset_bottom = -24.0
+text = "Age : 100"
+
+[node name="BuildingCursor" type="Sprite2D" parent="."]
+y_sort_enabled = true
+position = Vector2(-47, -11)
+texture = ExtResource("3_7jgi1")
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

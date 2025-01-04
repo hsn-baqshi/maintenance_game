@@ -40,7 +40,7 @@ func _physics_process(delta):
 	
 
 func _process(delta):
-	if selected :
+	if selected:
 		Game.building_cursor("technician")
 	if velocity.x > 0 :
 		spritee.flip_h = false
