@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cld4583sbxcc4"]
+[gd_scene load_steps=12 format=3 uid="uid://cld4583sbxcc4"]
 
 [ext_resource type="Script" path="res://Scripts/world.gd" id="1_ccfvt"]
 [ext_resource type="PackedScene" uid="uid://cqf2vrbyeo0ux" path="res://scenes/UI.tscn" id="1_ii5xf"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dgqi62g1hqhvc" path="res://scenes/tree.tscn" id="5_2v1of"]
 [ext_resource type="PackedScene" uid="uid://2gbsojdefxp3" path="res://scenes/coinHouse.tscn" id="7_0dxna"]
 [ext_resource type="PackedScene" uid="uid://bxyx85h5m304r" path="res://scenes/barracks.tscn" id="7_fdtyo"]
+[ext_resource type="PackedScene" uid="uid://bas75hbmg3l78" path="res://scenes/pump.tscn" id="8_3tcgp"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dhy0r"]
 bg_color = Color(0, 0, 0, 0.611765)
@@ -1799,3 +1800,6 @@ position = Vector2(230, 73)
 
 [node name="coinHouse" parent="." instance=ExtResource("7_0dxna")]
 position = Vector2(112, 110)
+
+[node name="pump" parent="." instance=ExtResource("8_3tcgp")]
+position = Vector2(331, 73)

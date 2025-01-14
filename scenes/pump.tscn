@@ -1,9 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://bxyx85h5m304r"]
+[gd_scene load_steps=12 format=3 uid="uid://bas75hbmg3l78"]
 
-[ext_resource type="Texture2D" uid="uid://7bnjvljpbrg0" path="res://assets/barracks.png" id="1_2gmxi"]
-[ext_resource type="Script" path="res://Scripts/barracks.gd" id="1_3tmn6"]
-[ext_resource type="Texture2D" uid="uid://bwgcgb8ueyueh" path="res://assets/building_cursor.png" id="3_7jgi1"]
-[ext_resource type="Texture2D" uid="uid://r8vww0weknh8" path="res://icon.svg" id="4_rlsvr"]
+[ext_resource type="Script" path="res://Scripts/barracks.gd" id="1_1bdfm"]
+[ext_resource type="Texture2D" uid="uid://7bnjvljpbrg0" path="res://assets/barracks.png" id="2_s5ot0"]
+[ext_resource type="Texture2D" uid="uid://bwgcgb8ueyueh" path="res://assets/building_cursor.png" id="3_02ru3"]
+[ext_resource type="Texture2D" uid="uid://r8vww0weknh8" path="res://icon.svg" id="4_k0xuu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h875d"]
 size = Vector2(24, 36)
@@ -32,10 +32,15 @@ bg_color = Color(1, 0.305882, 0.211765, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mtofj"]
 bg_color = Color(0.346066, 0.701781, 0, 1)
 
-[node name="Barracks" type="StaticBody2D" node_paths=PackedStringArray("select", "age_label", "select_value")]
+[node name="pump" type="StaticBody2D" node_paths=PackedStringArray("fan", "age_bar", "increase_button", "decrease_button", "production_rate_bar", "select", "age_label", "select_value")]
 input_pickable = true
-script = ExtResource("1_3tmn6")
-max_production = 0
+script = ExtResource("1_1bdfm")
+is_pump = true
+fan = NodePath("Icon")
+age_bar = NodePath("agebar")
+increase_button = NodePath("increase")
+decrease_button = NodePath("decrease")
+production_rate_bar = NodePath("ProgressBar")
 select = NodePath("Box")
 age_label = NodePath("Label")
 select_value = NodePath("Label2")
@@ -45,8 +50,9 @@ position = Vector2(0, 10)
 shape = SubResource("RectangleShape2D_h875d")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(0.7719, 2.18514e-05, 0.548818, 1)
 y_sort_enabled = true
-texture = ExtResource("1_2gmxi")
+texture = ExtResource("2_s5ot0")
 
 [node name="Box" type="Panel" parent="."]
 offset_left = -16.0
@@ -57,7 +63,6 @@ mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_7lppg")
 
 [node name="Label" type="Label" parent="."]
-visible = false
 offset_left = 26.0
 offset_top = -41.0
 offset_right = 95.0
@@ -69,16 +74,14 @@ text = "Age : 100"
 visible = false
 y_sort_enabled = true
 position = Vector2(-47, -11)
-texture = ExtResource("3_7jgi1")
+texture = ExtResource("3_02ru3")
 
 [node name="Area2D" type="Area2D" parent="."]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_garye")
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
-visible = false
 offset_left = 19.0
 offset_top = 29.0
 offset_right = 72.0
@@ -89,7 +92,6 @@ theme_override_styles/background = SubResource("StyleBoxFlat_74lvn")
 theme_override_styles/fill = SubResource("StyleBoxFlat_mdnc8")
 
 [node name="increase" type="Button" parent="."]
-visible = false
 offset_left = -41.0
 offset_top = -33.0
 offset_right = -24.0
@@ -97,7 +99,6 @@ offset_bottom = -2.0
 text = "^"
 
 [node name="decrease" type="Button" parent="."]
-visible = false
 offset_left = -41.0
 offset_top = 1.0
 offset_right = -24.0
@@ -105,7 +106,6 @@ offset_bottom = 32.0
 text = "v"
 
 [node name="agebar" type="ProgressBar" parent="."]
-visible = false
 offset_left = 22.0
 offset_top = -28.0
 offset_right = 67.0
@@ -116,16 +116,15 @@ theme_override_styles/background = SubResource("StyleBoxFlat_xb0bu")
 theme_override_styles/fill = SubResource("StyleBoxFlat_mtofj")
 
 [node name="Icon" type="Sprite2D" parent="."]
-visible = false
 position = Vector2(0, 17)
 scale = Vector2(0.152344, 0.152344)
-texture = ExtResource("4_rlsvr")
+texture = ExtResource("4_k0xuu")
 
 [node name="Label2" type="Label" parent="."]
-offset_left = -18.0
-offset_top = -53.0
-offset_right = 22.0
-offset_bottom = -30.0
+offset_left = -21.0
+offset_top = -74.0
+offset_right = 19.0
+offset_bottom = -51.0
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

@@ -1,5 +1,6 @@
 extends StaticBody2D
 var production_rate = 0
+@export var is_pump : bool 
 @export var fan : Sprite2D
 @export var age_bar : ProgressBar
 @export var increase_button : Button
@@ -22,7 +23,7 @@ var age = 1000
 @export var connected : bool = false
 var fixing_counter : float = 0
 var fixing_time : float = 5
-
+@export var select_value : Label
 func _ready() -> void:
 	age = initial_age
 	age_bar.max_value = initial_age
@@ -31,6 +32,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	select_value.text = str(select)
 	if fixing_counter > 0 :
 		fixing_counter -= delta
 	counter += production_rate
@@ -44,7 +46,7 @@ func _process(delta: float) -> void:
 	if mouseEntered and Game.unit_selected == "technician":
 		Input.set_custom_mouse_cursor(building_cursor_icon)
 		fixable = true
-		
+		fixing_counter = 5
 		if unit_nearby and fixing_counter <= 0 :
 			age = initial_age
 			fixable = false
@@ -57,7 +59,6 @@ func _process(delta: float) -> void:
 	production_rate_bar.visible = selected
 	fan.rotation += round(production_rate)
 
-	
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("RightClick"):
@@ -69,7 +70,8 @@ func _input(event: InputEvent) -> void:
 		if mouseEntered:
 			selected = !selected
 			if selected:
-				Game.spawnUnit(position)
+				if !is_pump:
+					Game.spawnUnit(position)
 
 func _on_mouse_entered() -> void:
 	mouseEntered = true
@@ -87,7 +89,6 @@ func coinsCollected():
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("units"):
-		fixing_counter = 5
 		unit_nearby=true
 
 
