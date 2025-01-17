@@ -72,10 +72,10 @@ position = Vector2(-47, -11)
 texture = ExtResource("3_7jgi1")
 
 [node name="Area2D" type="Area2D" parent="."]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_garye")
+disabled = true
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
 visible = false
@@ -122,6 +122,7 @@ scale = Vector2(0.152344, 0.152344)
 texture = ExtResource("4_rlsvr")
 
 [node name="Label2" type="Label" parent="."]
+visible = false
 offset_left = -18.0
 offset_top = -53.0
 offset_right = 22.0

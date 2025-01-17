@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://c418k6jh0lbut"]
+[gd_scene load_steps=11 format=3 uid="uid://c418k6jh0lbut"]
 
 [ext_resource type="Script" path="res://Scripts/technician.gd" id="1_c7asy"]
 [ext_resource type="Texture2D" uid="uid://b3ir1fwa0lp8y" path="res://assets/base_run_strip8.png" id="1_h1dk7"]
+[ext_resource type="Texture2D" uid="uid://guwvao47lvf" path="res://assets/rank.png" id="3_3w80t"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ru6ot"]
 size = Vector2(9, 7)
@@ -76,9 +77,11 @@ _data = {
 "idle": SubResource("Animation_nc0dw")
 }
 
-[node name="technician" type="CharacterBody2D" node_paths=PackedStringArray("box", "anim", "spritee")]
+[node name="technician" type="CharacterBody2D" node_paths=PackedStringArray("rank_sprite", "box", "anim", "spritee")]
 y_sort_enabled = true
+input_pickable = true
 script = ExtResource("1_c7asy")
+rank_sprite = NodePath("TextureRect")
 box = NodePath("Box")
 anim = NodePath("AnimationPlayer")
 spritee = NodePath("Sprite2D")
@@ -110,4 +113,15 @@ libraries = {
 "": SubResource("AnimationLibrary_t2u8p")
 }
 
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = 11.0
+offset_top = -5.0
+offset_right = 18.0
+rotation = 3.14159
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_3w80t")
+stretch_mode = 1
+
 [connection signal="input_event" from="." to="." method="_on_input_event"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

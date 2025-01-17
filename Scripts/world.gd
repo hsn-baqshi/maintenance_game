@@ -1,11 +1,16 @@
 extends Node2D
 
+@export var item_selected : Label
+
 var units = []
 
 func _ready():
 	get_units()
 	#Game.spawnUnit()
 	##print(units)
+
+func _process(delta: float) -> void:
+	item_selected.text = "Item selected : " + str(Game.unit_selected)
 
 func get_units():
 	units = get_tree().get_nodes_in_group("units")

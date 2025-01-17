@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bas75hbmg3l78"]
+[gd_scene load_steps=13 format=3 uid="uid://bas75hbmg3l78"]
 
 [ext_resource type="Script" path="res://Scripts/barracks.gd" id="1_1bdfm"]
 [ext_resource type="Texture2D" uid="uid://7bnjvljpbrg0" path="res://assets/barracks.png" id="2_s5ot0"]
@@ -27,19 +27,27 @@ bg_color = Color(0.886275, 0.478431, 0, 0.356863)
 bg_color = Color(0, 0.629749, 0.979766, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xb0bu"]
-bg_color = Color(1, 0.305882, 0.211765, 1)
+bg_color = Color(1, 0.30413, 0.229469, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mtofj"]
-bg_color = Color(0.346066, 0.701781, 0, 1)
+bg_color = Color(0.317868, 0.647327, 0, 1)
 
-[node name="pump" type="StaticBody2D" node_paths=PackedStringArray("fan", "age_bar", "increase_button", "decrease_button", "production_rate_bar", "select", "age_label", "select_value")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_exkde"]
+bg_color = Color(0.328965, 0.704486, 0, 1)
+
+[node name="pump" type="StaticBody2D" node_paths=PackedStringArray("bar", "timer", "fan", "age_bar", "increase_button", "decrease_button", "stop_button", "accelerate_button", "production_rate_bar", "select", "age_label", "select_value")]
+position = Vector2(62, 58)
 input_pickable = true
 script = ExtResource("1_1bdfm")
+bar = NodePath("fixingbar")
+timer = NodePath("Timer")
 is_pump = true
 fan = NodePath("Icon")
 age_bar = NodePath("agebar")
 increase_button = NodePath("increase")
 decrease_button = NodePath("decrease")
+stop_button = NodePath("stop")
+accelerate_button = NodePath("accelerate")
 production_rate_bar = NodePath("ProgressBar")
 select = NodePath("Box")
 age_label = NodePath("Label")
@@ -61,6 +69,7 @@ offset_right = 16.0
 offset_bottom = 30.0
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_7lppg")
+metadata/_edit_use_anchors_ = true
 
 [node name="Label" type="Label" parent="."]
 offset_left = 26.0
@@ -69,6 +78,7 @@ offset_right = 95.0
 offset_bottom = -18.0
 theme_override_font_sizes/font_size = 7
 text = "Age : 100"
+metadata/_edit_use_anchors_ = true
 
 [node name="BuildingCursor" type="Sprite2D" parent="."]
 visible = false
@@ -90,30 +100,33 @@ rotation = 4.71239
 theme_override_font_sizes/font_size = 10
 theme_override_styles/background = SubResource("StyleBoxFlat_74lvn")
 theme_override_styles/fill = SubResource("StyleBoxFlat_mdnc8")
+metadata/_edit_use_anchors_ = true
 
 [node name="increase" type="Button" parent="."]
 offset_left = -41.0
 offset_top = -33.0
 offset_right = -24.0
-offset_bottom = -2.0
+offset_bottom = -9.0
+theme_override_font_sizes/font_size = 11
 text = "^"
 
 [node name="decrease" type="Button" parent="."]
 offset_left = -41.0
-offset_top = 1.0
+offset_top = -8.0
 offset_right = -24.0
-offset_bottom = 32.0
+offset_bottom = 13.0
+theme_override_font_sizes/font_size = 9
 text = "v"
 
 [node name="agebar" type="ProgressBar" parent="."]
-offset_left = 22.0
-offset_top = -28.0
-offset_right = 67.0
-offset_bottom = -16.0
-rotation = -3.14159
+offset_left = -21.0
+offset_top = -44.0
+offset_right = 24.0
+offset_bottom = -32.0
 theme_override_font_sizes/font_size = 8
 theme_override_styles/background = SubResource("StyleBoxFlat_xb0bu")
 theme_override_styles/fill = SubResource("StyleBoxFlat_mtofj")
+metadata/_edit_use_anchors_ = true
 
 [node name="Icon" type="Sprite2D" parent="."]
 position = Vector2(0, 17)
@@ -121,10 +134,43 @@ scale = Vector2(0.152344, 0.152344)
 texture = ExtResource("4_k0xuu")
 
 [node name="Label2" type="Label" parent="."]
+visible = false
 offset_left = -21.0
 offset_top = -74.0
 offset_right = 19.0
 offset_bottom = -51.0
+
+[node name="fixingbar" type="ProgressBar" parent="."]
+offset_left = -21.0
+offset_top = -58.0
+offset_right = 24.0
+offset_bottom = -46.0
+theme_override_font_sizes/font_size = 1
+theme_override_styles/fill = SubResource("StyleBoxFlat_exkde")
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="stop" type="Button" parent="."]
+modulate = Color(1, 0.576803, 0.446887, 1)
+offset_left = -22.0
+offset_top = 14.0
+offset_right = -6.0
+offset_bottom = 33.0
+rotation = 1.5708
+theme_override_font_sizes/font_size = 7
+text = ">>"
+clip_text = true
+
+[node name="accelerate" type="Button" parent="."]
+modulate = Color(0.476664, 0.814005, 0, 1)
+offset_left = -41.0
+offset_top = -34.0
+offset_right = -25.0
+offset_bottom = -15.0
+rotation = 4.71239
+theme_override_font_sizes/font_size = 7
+text = ">>"
+clip_text = true
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
@@ -132,3 +178,6 @@ offset_bottom = -51.0
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
 [connection signal="button_down" from="increase" to="." method="_on_increase_button_down"]
 [connection signal="button_down" from="decrease" to="." method="_on_decrease_button_down"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="button_down" from="stop" to="." method="_on_stop_button_down"]
+[connection signal="button_down" from="accelerate" to="." method="_on_accelerate_button_down"]
