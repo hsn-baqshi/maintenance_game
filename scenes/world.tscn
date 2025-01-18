@@ -1799,9 +1799,10 @@ position = Vector2(96, 55)
 [node name="Houses" type="Node2D" parent="."]
 
 [node name="Barracks" parent="Houses" instance=ExtResource("7_fdtyo")]
-position = Vector2(230, 73)
+position = Vector2(57, 119)
 
 [node name="coinHouse" parent="." instance=ExtResource("7_0dxna")]
+visible = false
 position = Vector2(112, 110)
 
 [node name="pump" parent="." instance=ExtResource("8_3tcgp")]
