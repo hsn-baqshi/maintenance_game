@@ -1,9 +1,9 @@
 [gd_scene load_steps=13 format=3 uid="uid://bas75hbmg3l78"]
 
 [ext_resource type="Script" path="res://Scripts/barracks.gd" id="1_1bdfm"]
-[ext_resource type="Texture2D" uid="uid://7bnjvljpbrg0" path="res://assets/barracks.png" id="2_s5ot0"]
+[ext_resource type="Texture2D" uid="uid://5d0blc7dvtms" path="res://assets/pump.png" id="2_s7omj"]
 [ext_resource type="Texture2D" uid="uid://bwgcgb8ueyueh" path="res://assets/building_cursor.png" id="3_02ru3"]
-[ext_resource type="Texture2D" uid="uid://r8vww0weknh8" path="res://icon.svg" id="4_k0xuu"]
+[ext_resource type="Texture2D" uid="uid://x5nnkt3dpko" path="res://assets/small_fan.png" id="3_v4xt4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h875d"]
 size = Vector2(24, 36)
@@ -54,22 +54,26 @@ age_label = NodePath("Label")
 select_value = NodePath("Label2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 10)
+position = Vector2(5, 6)
 shape = SubResource("RectangleShape2D_h875d")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-self_modulate = Color(0.7719, 2.18514e-05, 0.548818, 1)
 y_sort_enabled = true
-texture = ExtResource("2_s5ot0")
+position = Vector2(5, 5)
+texture = ExtResource("2_s7omj")
+
+[node name="Icon" type="Sprite2D" parent="."]
+y_sort_enabled = true
+position = Vector2(6, 9)
+texture = ExtResource("3_v4xt4")
 
 [node name="Box" type="Panel" parent="."]
-offset_left = -16.0
-offset_top = -28.0
-offset_right = 16.0
-offset_bottom = 30.0
+offset_left = -9.0
+offset_top = -16.0
+offset_right = 19.0
+offset_bottom = 26.0
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_7lppg")
-metadata/_edit_use_anchors_ = true
 
 [node name="Label" type="Label" parent="."]
 offset_left = 26.0
@@ -89,6 +93,7 @@ texture = ExtResource("3_02ru3")
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(6, 8)
 shape = SubResource("RectangleShape2D_garye")
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
@@ -127,11 +132,6 @@ theme_override_font_sizes/font_size = 8
 theme_override_styles/background = SubResource("StyleBoxFlat_xb0bu")
 theme_override_styles/fill = SubResource("StyleBoxFlat_mtofj")
 metadata/_edit_use_anchors_ = true
-
-[node name="Icon" type="Sprite2D" parent="."]
-position = Vector2(0, 17)
-scale = Vector2(0.152344, 0.152344)
-texture = ExtResource("4_k0xuu")
 
 [node name="Label2" type="Label" parent="."]
 visible = false

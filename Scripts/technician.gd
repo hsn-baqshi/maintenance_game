@@ -11,7 +11,7 @@ var initial_rank : int
 var mouseEntered : bool = false
 var follow_cursor = false
 var speed = 50
-
+var is_carrying : bool = false
 func _ready():
 	initial_rank = rank_sprite.size.y
 	set_selected(selected)
@@ -20,6 +20,9 @@ func _ready():
 func set_selected(value):
 	selected = value
 	box.visible = value 
+
+func set_carry(val: bool = true):
+	is_carrying = val
 
 func add_rank(val):
 	rank += val

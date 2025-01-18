@@ -17,6 +17,7 @@ var window
 @export var stop_button : Button
 @export var accelerate_button : Button
 @export var max_production = 10
+@export var production_step = 1
 @export var production_rate_bar : ProgressBar
 var fixable : bool = false
 var unit_nearby : bool = false
@@ -36,7 +37,6 @@ var fixing_counter : float = 0
 var fixing_time : float = 5
 @export var select_value : Label
 
-
 func _ready() -> void:
 	currTime = totalTime
 	if bar :
@@ -47,7 +47,6 @@ func _ready() -> void:
 	if is_pump:
 		age_bar.max_value = initial_age
 		production_rate_bar.max_value = max_production
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -61,25 +60,21 @@ func _process(delta: float) -> void:
 	select_value.text = str(select)
 	if fixing_counter > 0 :
 		fixing_counter -= delta
+		if unit_nearby and fixing_counter <= 0 :
+			age = initial_age
+			fixable = false
 	counter += production_rate
-	if counter > 200 and age > 0:
+	if counter > 500 and age > 0:
 		#Game.Gold += 1
 		coinsCollected(10)
 		counter = 0
 	if age > 0 :
 		age -= 0.02*production_rate
 
-	if mouseEntered and Game.unit_selected == "technician":
-		Input.set_custom_mouse_cursor(building_cursor_icon)
-		fixable = true
-		fixing_counter = 5
-		if unit_nearby and fixing_counter <= 0 :
-			age = initial_age
-			fixable = false
-	else:
-		Input.set_custom_mouse_cursor(null)
-		#Input.set_default_cursor_shape()
-		fixable = false
+	#if mouseEntered and Game.unit_selected == "technician":
+
+	#elif !mouseEntered and Game.unit_selected == "technician":
+
 	select.visible = selected
 	if is_pump:
 		if age <= 0 :
@@ -92,7 +87,8 @@ func _process(delta: float) -> void:
 		production_rate_bar.visible = selected
 		stop_button.visible = selected
 		accelerate_button.visible = selected
-		fan.rotation += round(production_rate)
+		fan.rotation += round(production_rate*10)
+	
 
 
 func _input(event: InputEvent) -> void:
@@ -110,11 +106,21 @@ func _input(event: InputEvent) -> void:
 
 
 func _on_mouse_entered() -> void:
+	if Game.unit_selected == "technician" and age < initial_age:
+		print("should be YES mouseEntered ", mouseEntered)
+		Input.set_custom_mouse_cursor(building_cursor_icon)
+		fixable = true
+		fixing_counter = 5
 	mouseEntered = true
+	print(mouseEntered)
 
 
 func _on_mouse_exited() -> void:
 	mouseEntered = false
+	print(mouseEntered)
+	print("should be NOT mouseEntered ", mouseEntered)
+	Input.set_custom_mouse_cursor(null)
+	fixable = false
 
 func coinsCollected(val):
 	Game.Gold += val
@@ -122,14 +128,11 @@ func coinsCollected(val):
 	add_child(pop)
 	pop.show_value(str(val),false)
 
-
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("units"):
 		body_entered = body
 		unit_nearby=true
 		units += 1
-		
-
 
 func _on_area_2d_body_exited(body: Node2D) -> void:
 	if body.is_in_group("units"):
@@ -138,16 +141,23 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 		units -= 1
 		if units  <= 0 :
 			timer.stop()
-			
+
+
 func _on_increase_button_down():
 	selected = true
 	if production_rate < max_production:
-		production_rate += 1
+		production_rate += production_step
+		print("the fan speed is : ",fan.rotation)
+		print("the production rate is : ",production_rate)
+
 
 func _on_decrease_button_down() -> void:
 	selected = true
 	if production_rate > 0 :
-		production_rate -= 1
+		production_rate -= production_step
+		print("the fan speed is : ",fan.rotation)
+		print("the production rate is : ",production_rate)
+
 
 func connect_pump(val,query=false):
 	if query:

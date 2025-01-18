@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://r8vww0weknh8" path="res://icon.svg" id="4_rlsvr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h875d"]
-size = Vector2(24, 36)
+size = Vector2(38, 40)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7lppg"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -41,7 +41,6 @@ age_label = NodePath("Label")
 select_value = NodePath("Label2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 10)
 shape = SubResource("RectangleShape2D_h875d")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -49,10 +48,10 @@ y_sort_enabled = true
 texture = ExtResource("1_2gmxi")
 
 [node name="Box" type="Panel" parent="."]
-offset_left = -16.0
-offset_top = -28.0
-offset_right = 16.0
-offset_bottom = 30.0
+offset_left = -20.0
+offset_top = -21.0
+offset_right = 20.0
+offset_bottom = 22.0
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_7lppg")
 
