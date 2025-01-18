@@ -3,7 +3,7 @@ extends StaticBody2D
 var totalTime = 5
 var currTime 
 var units = 0
-
+var go_fix : bool =false
 @export var bar : ProgressBar
 @export var timer : Timer
 var body_entered
@@ -74,7 +74,9 @@ func _process(delta: float) -> void:
 	#if mouseEntered and Game.unit_selected == "technician":
 
 	#elif !mouseEntered and Game.unit_selected == "technician":
-
+	if go_fix and unit_nearby:
+		go_fix = false
+		startChopping()
 	select.visible = selected
 	if is_pump:
 		if age <= 0 :
@@ -92,10 +94,10 @@ func _process(delta: float) -> void:
 
 
 func _input(event: InputEvent) -> void:
+
 	if event.is_action_pressed("RightClick"):
-		if fixable and unit_nearby and age < initial_age and mouseEntered:
-			startChopping()
-			
+		if fixable :
+			go_fix = true
 	if event.is_action_pressed("LeftClick"):
 		if mouseEntered :
 			selected = true
@@ -109,8 +111,8 @@ func _on_mouse_entered() -> void:
 	if Game.unit_selected == "technician" and age < initial_age:
 		print("should be YES mouseEntered ", mouseEntered)
 		Input.set_custom_mouse_cursor(building_cursor_icon)
-		fixable = true
 		fixing_counter = 5
+		fixable = true
 	mouseEntered = true
 	print(mouseEntered)
 
