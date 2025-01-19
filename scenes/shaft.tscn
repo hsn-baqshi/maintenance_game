@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://dghqjpjofrkg1"]
+
+[ext_resource type="Texture2D" uid="uid://bedoaj63md0sa" path="res://assets/axe.png" id="1_o1m1n"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t6paw"]
+size = Vector2(6, 26)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bfiro"]
+size = Vector2(11, 19)
+
+[node name="RigidBody2D" type="RigidBody2D" groups=["spare"]]
+collision_mask = 2
+input_pickable = true
+mass = 0.001
+gravity_scale = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, 4)
+shape = SubResource("RectangleShape2D_t6paw")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 0.785398
+texture = ExtResource("1_o1m1n")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(-7, -4.5)
+shape = SubResource("RectangleShape2D_bfiro")

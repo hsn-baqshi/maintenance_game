@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cld4583sbxcc4"]
+[gd_scene load_steps=14 format=3 uid="uid://cld4583sbxcc4"]
 
 [ext_resource type="Script" path="res://Scripts/world.gd" id="1_ccfvt"]
 [ext_resource type="PackedScene" uid="uid://cqf2vrbyeo0ux" path="res://scenes/UI.tscn" id="1_ii5xf"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dyjnp3r8xdm8p" path="res://assets/spr_tileset_sunnysideworld_16px.png" id="4_2e71a"]
 [ext_resource type="PackedScene" uid="uid://dgqi62g1hqhvc" path="res://scenes/tree.tscn" id="5_2v1of"]
 [ext_resource type="PackedScene" uid="uid://2gbsojdefxp3" path="res://scenes/coinHouse.tscn" id="7_0dxna"]
+[ext_resource type="PackedScene" uid="uid://dghqjpjofrkg1" path="res://scenes/shaft.tscn" id="7_0rvy6"]
 [ext_resource type="PackedScene" uid="uid://bxyx85h5m304r" path="res://scenes/barracks.tscn" id="7_fdtyo"]
 [ext_resource type="PackedScene" uid="uid://bas75hbmg3l78" path="res://scenes/pump.tscn" id="8_3tcgp"]
 [ext_resource type="PackedScene" uid="uid://c418k6jh0lbut" path="res://scenes/technician.tscn" id="9_q4psk"]
@@ -1816,3 +1817,6 @@ offset_left = 148.0
 offset_top = 7.0
 offset_right = 188.0
 offset_bottom = 30.0
+
+[node name="RigidBody2D" parent="." instance=ExtResource("7_0rvy6")]
+position = Vector2(141, 124)

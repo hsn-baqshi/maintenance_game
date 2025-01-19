@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://c418k6jh0lbut"]
+[gd_scene load_steps=13 format=3 uid="uid://c418k6jh0lbut"]
 
 [ext_resource type="Script" path="res://Scripts/technician.gd" id="1_c7asy"]
 [ext_resource type="Texture2D" uid="uid://b3ir1fwa0lp8y" path="res://assets/base_run_strip8.png" id="1_h1dk7"]
 [ext_resource type="Texture2D" uid="uid://guwvao47lvf" path="res://assets/rank.png" id="3_3w80t"]
+[ext_resource type="Texture2D" uid="uid://bedoaj63md0sa" path="res://assets/axe.png" id="4_qf2im"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ru6ot"]
 size = Vector2(9, 7)
@@ -77,7 +78,10 @@ _data = {
 "idle": SubResource("Animation_nc0dw")
 }
 
-[node name="technician" type="CharacterBody2D" node_paths=PackedStringArray("rank_sprite", "box", "anim", "spritee")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r4s52"]
+size = Vector2(18, 22)
+
+[node name="technician" type="CharacterBody2D" node_paths=PackedStringArray("rank_sprite", "box", "anim", "spritee", "drop_button")]
 y_sort_enabled = true
 input_pickable = true
 script = ExtResource("1_c7asy")
@@ -85,6 +89,7 @@ rank_sprite = NodePath("TextureRect")
 box = NodePath("Box")
 anim = NodePath("AnimationPlayer")
 spritee = NodePath("Sprite2D")
+drop_button = NodePath("drop_item")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.5, 2.5)
@@ -122,6 +127,23 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_3w80t")
 stretch_mode = 1
 
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(1, -2)
+shape = SubResource("RectangleShape2D_r4s52")
+
+[node name="drop_item" type="Button" parent="."]
+offset_left = -21.0
+offset_top = -12.0
+offset_right = -9.0
+theme_override_font_sizes/font_size = 6
+icon = ExtResource("4_qf2im")
+expand_icon = true
+
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="button_down" from="drop_item" to="." method="_on_drop_item_button_down"]
