@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bas75hbmg3l78"]
+[gd_scene load_steps=15 format=3 uid="uid://bas75hbmg3l78"]
 
 [ext_resource type="Script" path="res://Scripts/barracks.gd" id="1_1bdfm"]
 [ext_resource type="Texture2D" uid="uid://5d0blc7dvtms" path="res://assets/pump.png" id="2_s7omj"]
@@ -34,6 +34,12 @@ bg_color = Color(0.317868, 0.647327, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_exkde"]
 bg_color = Color(0.328965, 0.704486, 0, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nsygi"]
+size = Vector2(28, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6yyt0"]
+size = Vector2(28, 23)
 
 [node name="pump" type="StaticBody2D" node_paths=PackedStringArray("bar", "timer", "fan", "age_bar", "increase_button", "decrease_button", "stop_button", "accelerate_button", "production_rate_bar", "select", "age_label", "select_value")]
 position = Vector2(62, 58)
@@ -172,6 +178,18 @@ theme_override_font_sizes/font_size = 7
 text = ">>"
 clip_text = true
 
+[node name="outlet_area" type="Area2D" parent="." groups=["outlet"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="outlet_area"]
+position = Vector2(5, -24)
+shape = SubResource("RectangleShape2D_nsygi")
+
+[node name="inlet_area" type="Area2D" parent="." groups=["inlet"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="inlet_area"]
+position = Vector2(5, 37)
+shape = SubResource("RectangleShape2D_6yyt0")
+
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
@@ -181,3 +199,7 @@ clip_text = true
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="button_down" from="stop" to="." method="_on_stop_button_down"]
 [connection signal="button_down" from="accelerate" to="." method="_on_accelerate_button_down"]
+[connection signal="area_entered" from="outlet_area" to="." method="_on_outlet_area_area_entered"]
+[connection signal="area_exited" from="outlet_area" to="." method="_on_outlet_area_area_exited"]
+[connection signal="area_entered" from="inlet_area" to="." method="_on_inlet_area_area_entered"]
+[connection signal="area_exited" from="inlet_area" to="." method="_on_inlet_area_area_exited"]

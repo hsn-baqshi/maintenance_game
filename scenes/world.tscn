@@ -1820,3 +1820,9 @@ offset_bottom = 30.0
 
 [node name="RigidBody2D" parent="." instance=ExtResource("7_0rvy6")]
 position = Vector2(141, 124)
+
+[node name="pump2" parent="." instance=ExtResource("8_3tcgp")]
+position = Vector2(332, 138)
+
+[node name="pump3" parent="." instance=ExtResource("8_3tcgp")]
+position = Vector2(331, 8)

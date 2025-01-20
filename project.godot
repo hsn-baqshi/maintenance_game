@@ -22,6 +22,8 @@ Game="*res://Global/Game.gd"
 
 units=""
 spare=""
+outlet=""
+inlet=""
 
 [input]
 

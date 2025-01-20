@@ -2,19 +2,50 @@
 
 [ext_resource type="Script" path="res://Scripts/ui.gd" id="1_tbv44"]
 
-[node name="UI" type="CanvasLayer" node_paths=PackedStringArray("label", "Gold")]
+[node name="UI" type="CanvasLayer" node_paths=PackedStringArray("label", "Gold", "Production", "Price")]
 script = ExtResource("1_tbv44")
 label = NodePath("Wood")
 Gold = NodePath("Gold")
+Production = NodePath("Production")
+Price = NodePath("Button")
 
 [node name="Wood" type="Label" parent="."]
+visible = false
 offset_left = 41.0
 offset_top = 16.0
 offset_right = 81.0
 offset_bottom = 39.0
+text = "0000"
 
 [node name="Gold" type="Label" parent="."]
-offset_left = 127.0
+offset_left = 41.0
 offset_top = 15.0
-offset_right = 167.0
+offset_right = 81.0
 offset_bottom = 38.0
+text = "000"
+
+[node name="Production" type="Label" parent="."]
+offset_left = 41.0
+offset_top = 37.0
+offset_right = 81.0
+offset_bottom = 60.0
+text = "0000"
+
+[node name="Price" type="Label" parent="."]
+visible = false
+offset_left = 127.0
+offset_top = 36.0
+offset_right = 167.0
+offset_bottom = 59.0
+text = "0000"
+
+[node name="Button" type="Button" parent="."]
+offset_left = 40.0
+offset_top = 59.0
+offset_right = 145.0
+offset_bottom = 81.0
+theme_override_font_sizes/font_size = 10
+text = "Sell : "
+alignment = 0
+
+[connection signal="button_down" from="Button" to="." method="_on_button_button_down"]

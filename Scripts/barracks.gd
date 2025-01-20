@@ -36,6 +36,8 @@ var age = 1000
 var fixing_counter : float = 0
 var fixing_time : float = 5
 @export var select_value : Label
+var outlet : bool = false
+var inlet : bool = false
 
 func _ready() -> void:
 	currTime = totalTime
@@ -63,6 +65,9 @@ func _process(delta: float) -> void:
 		if unit_nearby and fixing_counter <= 0 :
 			age = initial_age
 			fixable = false
+	if !outlet or !inlet :
+		production_rate = 0
+		
 	counter += production_rate
 	if counter > 500 and age > 0:
 		#Game.Gold += 1
@@ -71,9 +76,6 @@ func _process(delta: float) -> void:
 	if age > 0 :
 		age -= 0.02*production_rate
 
-	#if mouseEntered and Game.unit_selected == "technician":
-
-	#elif !mouseEntered and Game.unit_selected == "technician":
 	if go_fix and unit_nearby:
 		go_fix = false
 		startChopping()
@@ -81,7 +83,7 @@ func _process(delta: float) -> void:
 	if is_pump:
 		if age <= 0 :
 			production_rate = 0
-		age_label.text = "RUL : " + str(production_rate)
+		age_label.text = "RUL : " + str(age)
 		age_bar.value = age
 		production_rate_bar.value = production_rate
 		increase_button.visible = selected
@@ -111,7 +113,7 @@ func _on_mouse_entered() -> void:
 	if Game.unit_selected == "technician" and age < initial_age:
 		print("should be YES mouseEntered ", mouseEntered)
 		Input.set_custom_mouse_cursor(building_cursor_icon)
-		fixing_counter = 5
+		fixing_counter = fixing_time
 		fixable = true
 	mouseEntered = true
 	print(mouseEntered)
@@ -125,7 +127,7 @@ func _on_mouse_exited() -> void:
 	fixable = false
 
 func coinsCollected(val):
-	Game.Gold += val
+	Game.Production += val
 	var pop = POP.instantiate()
 	add_child(pop)
 	pop.show_value(str(val),false)
@@ -193,3 +195,23 @@ func _on_stop_button_down() -> void:
 func _on_accelerate_button_down() -> void:
 	selected = true
 	production_rate = max_production
+
+
+func _on_outlet_area_area_entered(area: Area2D) -> void:
+	if area.is_in_group("inlet"):
+		outlet = true
+
+
+func _on_outlet_area_area_exited(area: Area2D) -> void:
+	if area.is_in_group("inlet"):
+		outlet = false
+
+
+func _on_inlet_area_area_entered(area: Area2D) -> void:
+	if area.is_in_group("outlet"):
+		inlet = true
+
+
+func _on_inlet_area_area_exited(area: Area2D) -> void:
+	if area.is_in_group("outlet"):
+		inlet = false
