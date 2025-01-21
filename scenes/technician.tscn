@@ -81,10 +81,11 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r4s52"]
 size = Vector2(18, 22)
 
-[node name="technician" type="CharacterBody2D" node_paths=PackedStringArray("rank_sprite", "box", "anim", "spritee", "drop_button")]
+[node name="technician" type="CharacterBody2D" node_paths=PackedStringArray("chill", "rank_sprite", "box", "anim", "spritee", "drop_button")]
 y_sort_enabled = true
 input_pickable = true
 script = ExtResource("1_c7asy")
+chill = NodePath("Label")
 rank_sprite = NodePath("TextureRect")
 box = NodePath("Box")
 anim = NodePath("AnimationPlayer")
@@ -140,6 +141,14 @@ offset_right = -9.0
 theme_override_font_sizes/font_size = 6
 icon = ExtResource("4_qf2im")
 expand_icon = true
+
+[node name="Label" type="Label" parent="."]
+offset_left = -33.0
+offset_top = 3.0
+offset_right = 7.0
+offset_bottom = 26.0
+theme_override_font_sizes/font_size = 8
+text = "lol"
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

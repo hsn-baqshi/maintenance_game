@@ -1,18 +1,20 @@
-[gd_scene load_steps=4 format=3 uid="uid://dghqjpjofrkg1"]
+[gd_scene load_steps=5 format=3 uid="uid://dghqjpjofrkg1"]
 
+[ext_resource type="Script" path="res://Scripts/shaft.gd" id="1_5am1s"]
 [ext_resource type="Texture2D" uid="uid://bedoaj63md0sa" path="res://assets/axe.png" id="1_o1m1n"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t6paw"]
 size = Vector2(6, 26)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_bfiro"]
-size = Vector2(11, 19)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1v7ov"]
+size = Vector2(25, 35)
 
-[node name="RigidBody2D" type="RigidBody2D" groups=["spare"]]
+[node name="shaft" type="RigidBody2D" groups=["spare"]]
 collision_mask = 2
 input_pickable = true
 mass = 0.001
 gravity_scale = 0.0
+script = ExtResource("1_5am1s")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, 4)
@@ -22,6 +24,13 @@ shape = SubResource("RectangleShape2D_t6paw")
 rotation = 0.785398
 texture = ExtResource("1_o1m1n")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
-position = Vector2(-7, -4.5)
-shape = SubResource("RectangleShape2D_bfiro")
+[node name="pickuparea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="pickuparea"]
+position = Vector2(-0.5, 2.5)
+shape = SubResource("RectangleShape2D_1v7ov")
+debug_color = Color(0.65765, 0.51428, 0, 0.247059)
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[connection signal="body_entered" from="pickuparea" to="." method="_on_pickuparea_body_entered"]

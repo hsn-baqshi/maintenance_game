@@ -1,5 +1,6 @@
 extends CharacterBody2D
 
+@export var chill : Label
 var rank : int = 1
 var initial_rank : int
 @export var rank_sprite : TextureRect
@@ -13,7 +14,8 @@ var follow_cursor = false
 var speed = 50
 var is_carrying : bool = false
 @export var slow_speed : int = 20
-var picked_up_object 
+var picked_up_object = null
+
 @export var drop_button : Button
 func _ready():
 	initial_rank = rank_sprite.size.y
@@ -64,6 +66,7 @@ func _physics_process(delta):
 		anim.stop()
 
 func _process(delta):
+	chill.text = str(get_children())
 	drop_button.visible = is_carrying
 	if picked_up_object:
 		picked_up_object.position = position
@@ -94,11 +97,26 @@ func _on_mouse_exited() -> void:
 	mouseEntered = false
 	print("I am NOT hovering over the guy")
 
+func add_spare(ok):
+		if ok.get_parent():
+			print("the parent is : ")
+			print(ok.get_parent())
+			add_child(ok)
+		move_child(ok, 0)
+
+func pick_up_object(object): 
+	if picked_up_object == null: 
+		picked_up_object = object 
+		picked_up_object.get_parent().remove_child(picked_up_object) 
+		add_child(picked_up_object) 
+		picked_up_object.position = position # Adjust the position relative to the player # Add your code here to handle what happens when the object is picked up
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("spare"):
+		pick_up_object(body)
+		#speed = slow_speed
 		print("I found a spare")
-		picked_up_object = body
+		#picked_up_object = body
 		is_carrying = true
 
 
