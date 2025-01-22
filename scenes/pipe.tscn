@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://drsn7mgoevtyq"]
+
+[ext_resource type="Texture2D" uid="uid://deij0gnfkvgsn" path="res://assets/PIPE.png" id="1_23htl"]
+[ext_resource type="Script" path="res://Scripts/pipe.gd" id="1_w5s61"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_txgeg"]
+size = Vector2(20, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_40it3"]
+size = Vector2(24, 11)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wxj27"]
+size = Vector2(24, 13)
+
+[node name="pipe" type="StaticBody2D"]
+script = ExtResource("1_w5s61")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_txgeg")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_23htl")
+
+[node name="inlet" type="Area2D" parent="." groups=["inlet"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="inlet"]
+position = Vector2(0, 14.5)
+shape = SubResource("RectangleShape2D_40it3")
+
+[node name="outlet" type="Area2D" parent="." groups=["outlet"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="outlet"]
+position = Vector2(0, -13.5)
+shape = SubResource("RectangleShape2D_wxj27")

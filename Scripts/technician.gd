@@ -15,7 +15,7 @@ var speed = 50
 var is_carrying : bool = false
 @export var slow_speed : int = 20
 var picked_up_object = null
-
+var original_pos : Vector2 = Vector2(0,0)
 @export var drop_button : Button
 func _ready():
 	initial_rank = rank_sprite.size.y
@@ -42,7 +42,7 @@ func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 
 func _input(event):
 	if event.is_action_pressed("LeftClick"):
-		picked_up_object = null
+		#picked_up_object = null
 		if mouseEntered:
 			set_selected(true)
 		else:
@@ -66,10 +66,11 @@ func _physics_process(delta):
 		anim.stop()
 
 func _process(delta):
+	if picked_up_object != null:
+		print("the picked up object is : ",picked_up_object.position)
+		print("my location is ",position)
 	chill.text = str(get_children())
 	drop_button.visible = is_carrying
-	if picked_up_object:
-		picked_up_object.position = position
 	if picked_up_object == null:
 		is_carrying=false
 	if is_carrying:
@@ -104,30 +105,41 @@ func add_spare(ok):
 			add_child(ok)
 		move_child(ok, 0)
 
-func pick_up_object(object): 
+func pick_up_object(object,remove=false): 
+	#original_pos = object.position
+	print("character pos is ", position)
+	print("object pos is ",object.position)
 	if picked_up_object == null: 
 		picked_up_object = object 
 		picked_up_object.get_parent().remove_child(picked_up_object) 
 		add_child(picked_up_object) 
-		picked_up_object.position = position # Adjust the position relative to the player # Add your code here to handle what happens when the object is picked up
+		print(get_children())
+		picked_up_object.set_picked(true)
+		picked_up_object.position = Vector2(0,0)
+
+	if picked_up_object != null and remove :
+		remove_child(object)
+		get_parent().add_child(object)
+		picked_up_object.set_picked(false)
+		object.global_position = global_position
+		picked_up_object=null
+
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("spare"):
+		#body.position = position
 		pick_up_object(body)
-		#speed = slow_speed
 		print("I found a spare")
-		#picked_up_object = body
 		is_carrying = true
 
 
 func _on_area_2d_body_exited(body: Node2D) -> void:
 	if body.is_in_group("spare"):
 		pass
-		#picked_up_object = null
+
 
 
 func _on_drop_item_button_down() -> void:
 	set_selected(true)
-	picked_up_object = null
+	pick_up_object(picked_up_object,true)
 	is_carrying=false
-	print(is_carrying)
