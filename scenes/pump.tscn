@@ -185,6 +185,7 @@ position = Vector2(5, -24)
 shape = SubResource("RectangleShape2D_nsygi")
 
 [node name="inlet_area" type="Area2D" parent="." groups=["inlet"]]
+position = Vector2(26, -27)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="inlet_area"]
 position = Vector2(5, 37)

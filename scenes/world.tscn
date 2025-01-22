@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cld4583sbxcc4"]
+[gd_scene load_steps=14 format=3 uid="uid://cld4583sbxcc4"]
 
 [ext_resource type="Script" path="res://Scripts/world.gd" id="1_ccfvt"]
 [ext_resource type="PackedScene" uid="uid://cqf2vrbyeo0ux" path="res://scenes/UI.tscn" id="1_ii5xf"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://bxyx85h5m304r" path="res://scenes/barracks.tscn" id="7_fdtyo"]
 [ext_resource type="PackedScene" uid="uid://bas75hbmg3l78" path="res://scenes/pump.tscn" id="8_3tcgp"]
 [ext_resource type="PackedScene" uid="uid://c418k6jh0lbut" path="res://scenes/technician.tscn" id="9_q4psk"]
+[ext_resource type="PackedScene" uid="uid://drsn7mgoevtyq" path="res://scenes/pipe.tscn" id="10_y8y5d"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dhy0r"]
 bg_color = Color(0, 0, 0, 0.611765)
@@ -1813,13 +1814,14 @@ offset_top = 7.0
 offset_right = 188.0
 offset_bottom = 30.0
 
-[node name="pump2" parent="." instance=ExtResource("8_3tcgp")]
-position = Vector2(332, 138)
-
-[node name="pump3" parent="." instance=ExtResource("8_3tcgp")]
-position = Vector2(331, 8)
-
 [node name="spares" type="Node2D" parent="."]
 
 [node name="RigidBody2D" parent="spares" instance=ExtResource("7_0rvy6")]
 position = Vector2(141, 124)
+
+[node name="pipe" parent="." instance=ExtResource("10_y8y5d")]
+position = Vector2(371, 82)
+rotation = -1.57079
+
+[node name="pipe2" parent="." instance=ExtResource("10_y8y5d")]
+position = Vector2(336, 38)
