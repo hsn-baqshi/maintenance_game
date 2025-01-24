@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://c418k6jh0lbut"]
+[gd_scene load_steps=14 format=3 uid="uid://c418k6jh0lbut"]
 
 [ext_resource type="Script" path="res://Scripts/technician.gd" id="1_c7asy"]
 [ext_resource type="Texture2D" uid="uid://b3ir1fwa0lp8y" path="res://assets/base_run_strip8.png" id="1_h1dk7"]
@@ -17,13 +17,10 @@ border_width_bottom = 2
 border_color = Color(0, 0.8, 0.8, 1)
 border_blend = true
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8g006"]
-bg_color = Color(2.69532e-06, 0.666195, 0.812362, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(1, 1, 1, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1vbm1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hheoy"]
+bg_color = Color(1.44392e-06, 0.673974, 0.76827, 1)
 
 [sub_resource type="Animation" id="Animation_dulyh"]
 length = 0.001
@@ -81,9 +78,11 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r4s52"]
 size = Vector2(18, 22)
 
-[node name="technician" type="CharacterBody2D" node_paths=PackedStringArray("chill", "rank_sprite", "box", "anim", "spritee", "drop_button")]
+[node name="technician" type="CharacterBody2D" node_paths=PackedStringArray("chill", "rank_sprite", "box", "anim", "spritee", "drop_button", "energy_bar", "energy_timer")]
 y_sort_enabled = true
 input_pickable = true
+motion_mode = 1
+floor_stop_on_slope = false
 script = ExtResource("1_c7asy")
 chill = NodePath("Label")
 rank_sprite = NodePath("TextureRect")
@@ -91,6 +90,8 @@ box = NodePath("Box")
 anim = NodePath("AnimationPlayer")
 spritee = NodePath("Sprite2D")
 drop_button = NodePath("drop_item")
+energy_bar = NodePath("Box/Panel")
+energy_timer = NodePath("energy_timer")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.5, 2.5)
@@ -107,12 +108,14 @@ offset_right = 9.0
 offset_bottom = 7.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_gt2ey")
 
-[node name="Panel" type="Panel" parent="Box"]
+[node name="Panel" type="ProgressBar" parent="Box"]
 layout_mode = 0
-offset_top = -6.0
+offset_top = -8.0
 offset_right = 16.0
-offset_bottom = -1.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_8g006")
+offset_bottom = -2.0
+theme_override_styles/background = SubResource("StyleBoxFlat_1vbm1")
+theme_override_styles/fill = SubResource("StyleBoxFlat_hheoy")
+show_percentage = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -150,9 +153,12 @@ offset_bottom = 26.0
 theme_override_font_sizes/font_size = 8
 text = "lol"
 
+[node name="energy_timer" type="Timer" parent="."]
+
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
 [connection signal="button_down" from="drop_item" to="." method="_on_drop_item_button_down"]
+[connection signal="timeout" from="energy_timer" to="." method="_on_energy_timer_timeout"]

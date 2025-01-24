@@ -17,7 +17,11 @@ var is_carrying : bool = false
 var picked_up_object = null
 var original_pos : Vector2 = Vector2(0,0)
 @export var drop_button : Button
+@export var energy : float = 100
+@export var energy_bar : ProgressBar 
+@export var energy_timer : Timer
 func _ready():
+	energy_bar.max_value=energy
 	initial_rank = rank_sprite.size.y
 	set_selected(selected)
 	add_to_group("units",true)
@@ -55,21 +59,32 @@ func _input(event):
 
 func _physics_process(delta):
 	#rank
-	if follow_cursor:
+	if energy <= 0 :
+		speed = 0
+		energy_timer.start()
+
+	if follow_cursor :
 		if selected:
 			target = get_global_mouse_position()
 			anim.play("Walk Down")
-	velocity = position.direction_to(target)*speed
-	if position.distance_to(target) > 10:
+	
+	if position.distance_to(target) > 10 and energy > 0:
+		velocity = position.direction_to(target)*speed
 		move_and_slide()
 	else:
+		velocity = Vector2.ZERO
+		#speed = speed.lerp(0.0, delta)
 		anim.stop()
-
+		energy += 0.05
+	if abs(velocity) > Vector2.ZERO and picked_up_object != null :
+		energy -= 0.1
+	print("the velocity is ",abs(velocity))
 func _process(delta):
+	energy_bar.value = energy
 	if picked_up_object != null:
 		print("the picked up object is : ",picked_up_object.position)
 		print("my location is ",position)
-	chill.text = str(get_children())
+	chill.text = str(get_velocity())
 	drop_button.visible = is_carrying
 	if picked_up_object == null:
 		is_carrying=false
@@ -81,14 +96,16 @@ func _process(delta):
 		Game.building_cursor("technician")
 	elif !selected:
 		Game.building_cursor("")
+
 	if velocity.x > 0 :
 		spritee.flip_h = false
 	elif velocity.x < 0 :
 		spritee.flip_h = true
-	if abs(velocity.x) < 0.1 and abs(velocity.y) < 0.1:
+	if abs(velocity.x) < 0.1 or abs(velocity.y) < 0.1:
 		velocity = Vector2(0,0)
+		
 		anim.stop()
-
+	
 
 func _on_mouse_entered() -> void:
 	mouseEntered = true
@@ -143,3 +160,7 @@ func _on_drop_item_button_down() -> void:
 	set_selected(true)
 	pick_up_object(picked_up_object,true)
 	is_carrying=false
+
+
+func _on_energy_timer_timeout() -> void:
+	speed = 50
