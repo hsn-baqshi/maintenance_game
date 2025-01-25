@@ -10,7 +10,7 @@ var Production = 0
 var Profit_margin = 100 # $/L
 var counter = 0
 var previous_margin 
-
+var selected_body
 
 func gen_rand(x,y):
 	var rng = RandomNumberGenerator.new()
@@ -45,7 +45,9 @@ func spawnUnit(pos,return_something = false):
 		if return_something:
 			return spawnUnit
 
-		
+func return_body(bodyy):
+	selected_body = bodyy
+	
 
 func building_cursor(val):
 	unit_selected = val

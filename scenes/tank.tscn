@@ -1,0 +1,44 @@
+[gd_scene load_steps=7 format=3 uid="uid://d0sfja0olm3ls"]
+
+[ext_resource type="Script" path="res://Scripts/tank.gd" id="1_3h3ar"]
+[ext_resource type="Texture2D" uid="uid://dx1mkphb8xqs1" path="res://assets/tank.png" id="1_d56pb"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1gqn6"]
+bg_color = Color(0.34902, 0.34902, 0.34902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r3uux"]
+bg_color = Color(0, 0.627536, 0.988401, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_315go"]
+size = Vector2(47, 35)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ksop4"]
+size = Vector2(61, 38)
+
+[node name="tank" type="StaticBody2D" node_paths=PackedStringArray("level_bar") groups=["inlet", "outlet", "tank"]]
+script = ExtResource("1_3h3ar")
+level_bar = NodePath("ProgressBar")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = 23.0
+offset_top = 17.0
+offset_right = 53.0
+offset_bottom = 22.0
+rotation = -1.5708
+theme_override_styles/background = SubResource("StyleBoxFlat_1gqn6")
+theme_override_styles/fill = SubResource("StyleBoxFlat_r3uux")
+value = 50.0
+show_percentage = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-4.5, 1.5)
+shape = SubResource("RectangleShape2D_315go")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_d56pb")
+
+[node name="Area2D" type="Area2D" parent="." groups=["inlet", "outlet", "tank"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" groups=["inlet", "outlet"]]
+position = Vector2(-0.5, 1)
+shape = SubResource("RectangleShape2D_ksop4")

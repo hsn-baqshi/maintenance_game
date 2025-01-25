@@ -24,6 +24,7 @@ units=""
 spare=""
 outlet=""
 inlet=""
+tank=""
 
 [input]
 

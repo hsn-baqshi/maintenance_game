@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cld4583sbxcc4"]
+[gd_scene load_steps=16 format=3 uid="uid://cld4583sbxcc4"]
 
 [ext_resource type="Script" path="res://Scripts/world.gd" id="1_ccfvt"]
 [ext_resource type="PackedScene" uid="uid://cqf2vrbyeo0ux" path="res://scenes/UI.tscn" id="1_ii5xf"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://c418k6jh0lbut" path="res://scenes/technician.tscn" id="9_q4psk"]
 [ext_resource type="PackedScene" uid="uid://drsn7mgoevtyq" path="res://scenes/pipe.tscn" id="10_y8y5d"]
 [ext_resource type="PackedScene" uid="uid://17dtd8w3jwee" path="res://scenes/canon.tscn" id="11_nvjjg"]
+[ext_resource type="PackedScene" uid="uid://d0sfja0olm3ls" path="res://scenes/tank.tscn" id="12_pqqjw"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dhy0r"]
 bg_color = Color(0, 0, 0, 0.611765)
@@ -1804,6 +1805,8 @@ position = Vector2(96, 55)
 position = Vector2(57, 119)
 
 [node name="pump" parent="." instance=ExtResource("8_3tcgp")]
+z_index = 1
+y_sort_enabled = true
 position = Vector2(331, 73)
 
 [node name="technician" parent="." instance=ExtResource("9_q4psk")]
@@ -1821,11 +1824,16 @@ offset_bottom = 30.0
 position = Vector2(149, 131)
 
 [node name="pipe" parent="." instance=ExtResource("10_y8y5d")]
-position = Vector2(371, 82)
+y_sort_enabled = true
+position = Vector2(429, 173)
 rotation = -1.57079
 
 [node name="pipe2" parent="." instance=ExtResource("10_y8y5d")]
+y_sort_enabled = true
 position = Vector2(336, 38)
 
 [node name="canon" parent="." instance=ExtResource("11_nvjjg")]
 position = Vector2(210, 36)
+
+[node name="tank" parent="." instance=ExtResource("12_pqqjw")]
+position = Vector2(382, 81)

@@ -78,12 +78,13 @@ func _physics_process(delta):
 		energy += 0.05
 	if abs(velocity) > Vector2.ZERO and picked_up_object != null :
 		energy -= 0.1
-	print("the velocity is ",abs(velocity))
+	#print("the velocity is ",abs(velocity))
+
 func _process(delta):
 	energy_bar.value = energy
-	if picked_up_object != null:
-		print("the picked up object is : ",picked_up_object.position)
-		print("my location is ",position)
+	#if picked_up_object != null:
+		#print("the picked up object is : ",picked_up_object.position)
+		#print("my location is ",position)
 	chill.text = str(get_velocity())
 	drop_button.visible = is_carrying
 	if picked_up_object == null:
@@ -94,8 +95,10 @@ func _process(delta):
 		speed = 50
 	if selected:
 		Game.building_cursor("technician")
+		Game.return_body(self)
 	elif !selected:
 		Game.building_cursor("")
+		Game.return_body(null)
 
 	if velocity.x > 0 :
 		spritee.flip_h = false
@@ -109,7 +112,7 @@ func _process(delta):
 
 func _on_mouse_entered() -> void:
 	mouseEntered = true
-	print("I am hovering over the guy")
+	#print("I am hovering over the guy")
 
 func _on_mouse_exited() -> void:
 	mouseEntered = false

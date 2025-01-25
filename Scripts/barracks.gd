@@ -38,8 +38,9 @@ var fixing_time : float = 5
 @export var select_value : Label
 var outlet : bool = false
 var inlet : bool = false
-
+var inlet_source 
 func _ready() -> void:
+	inlet_source = null
 	currTime = totalTime
 	if bar :
 		bar.max_value = fixing_time
@@ -52,36 +53,44 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if bar :
-		bar.value = currTime
-	if currTime <= 0 :
-		body_entered.add_rank(1)
-		treeChopped()
-		currTime = totalTime
-		
 	select_value.text = str(select)
-	if fixing_counter > 0 :
-		fixing_counter -= delta
-		if unit_nearby and fixing_counter <= 0 :
-			age = initial_age
-			fixable = false
-	if !outlet or !inlet :
-		production_rate = 0
-		
-	counter += production_rate
-	if counter > 500 and age > 0:
-		#Game.Gold += 1
-		coinsCollected(10)
-		counter = 0
-	if age > 0 :
-		age -= 0.02*production_rate
-
-	if go_fix and unit_nearby:
-		go_fix = false
-		startChopping()
 	select.visible = selected
+
 	if is_pump:
-		if age <= 0 :
+		if bar :
+			bar.value = currTime
+		if currTime <= 0 :
+			body_entered.add_rank(1)
+			treeChopped()
+			currTime = totalTime
+			
+
+		if fixing_counter > 0 :
+			fixing_counter -= delta
+			if unit_nearby and fixing_counter <= 0 :
+				age = initial_age
+				fixable = false
+
+		if !outlet or !inlet :
+			production_rate = 0
+
+		counter += production_rate
+		if counter > 500 and age > 0:
+			#Game.Gold += 1
+			coinsCollected(10)
+			counter = 0
+		if production_rate > 0 :
+			age -= 0.02*production_rate
+			if inlet_source != null :
+				inlet_source.reduce_level(true)
+		elif production_rate <= 0 :
+			if inlet_source != null :
+				inlet_source.reduce_level(false)
+		if go_fix and unit_nearby:
+			go_fix = false
+			startChopping()
+	
+		if age <= 0 or inlet_source.return_level() <= 0:
 			production_rate = 0
 		age_label.text = "RUL : " + str(age)
 		age_bar.value = age
@@ -110,19 +119,20 @@ func _input(event: InputEvent) -> void:
 
 
 func _on_mouse_entered() -> void:
-	if Game.unit_selected == "technician" and age < initial_age:
-		print("should be YES mouseEntered ", mouseEntered)
+	if Game.unit_selected == "technician" and age < initial_age and Game.selected_body.return_carrying() and Game.Gold >= 100 :
+		
+		#print("should be YES mouseEntered ", mouseEntered)
 		Input.set_custom_mouse_cursor(building_cursor_icon)
 		fixing_counter = fixing_time
 		fixable = true
 	mouseEntered = true
-	print(mouseEntered)
+	#print(mouseEntered)
 
 
 func _on_mouse_exited() -> void:
 	mouseEntered = false
-	print(mouseEntered)
-	print("should be NOT mouseEntered ", mouseEntered)
+	#print(mouseEntered)
+	#print("should be NOT mouseEntered ", mouseEntered)
 	Input.set_custom_mouse_cursor(null)
 	fixable = false
 
@@ -149,18 +159,18 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 
 func _on_increase_button_down():
 	selected = true
-	if production_rate < max_production:
+	if production_rate < max_production and age > 0:
 		production_rate += production_step
-		print("the fan speed is : ",fan.rotation)
-		print("the production rate is : ",production_rate)
+		#print("the fan speed is : ",fan.rotation)
+		#print("the production rate is : ",production_rate)
 
 
 func _on_decrease_button_down() -> void:
 	selected = true
-	if production_rate > 0 :
+	if production_rate > 0 and age > 0 :
 		production_rate -= production_step
-		print("the fan speed is : ",fan.rotation)
-		print("the production rate is : ",production_rate)
+		#print("the fan speed is : ",fan.rotation)
+		#print("the production rate is : ",production_rate)
 
 
 func connect_pump(val,query=false):
@@ -184,22 +194,27 @@ func startChopping():
 func treeChopped():
 	Game.Wood += 1
 	age = initial_age
+	Game.Gold -= 100
 	bar.visible=false
 
 
 func _on_stop_button_down() -> void:
 	selected = true
-	production_rate = 0
+	if age > 0 :
+		production_rate = 0
 
 
 func _on_accelerate_button_down() -> void:
 	selected = true
-	production_rate = max_production
+	if age > 0 :
+		production_rate = max_production
 
 
 func _on_outlet_area_area_entered(area: Area2D) -> void:
 	if area.is_in_group("inlet"):
+		
 		outlet = true
+
 
 
 func _on_outlet_area_area_exited(area: Area2D) -> void:
@@ -207,11 +222,18 @@ func _on_outlet_area_area_exited(area: Area2D) -> void:
 		outlet = false
 
 
+
 func _on_inlet_area_area_entered(area: Area2D) -> void:
 	if area.is_in_group("outlet"):
+		print("there is an area")
 		inlet = true
-
+		print(area.get_parent())
+		if area.get_parent().is_in_group("tank"):
+			inlet_source = area.get_parent()
+			print("there is a tank")
 
 func _on_inlet_area_area_exited(area: Area2D) -> void:
 	if area.is_in_group("outlet"):
 		inlet = false
+		if area.get_parent().is_in_group("tank"):
+			inlet_source = null
