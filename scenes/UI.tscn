@@ -1,13 +1,26 @@
-[gd_scene load_steps=2 format=3 uid="uid://cqf2vrbyeo0ux"]
+[gd_scene load_steps=6 format=3 uid="uid://cqf2vrbyeo0ux"]
 
 [ext_resource type="Script" path="res://Scripts/ui.gd" id="1_tbv44"]
 
-[node name="UI" type="CanvasLayer" node_paths=PackedStringArray("label", "Gold", "Production", "Price")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bhw7n"]
+size = Vector2(44, 684)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4p1u4"]
+size = Vector2(44, 684)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4txfg"]
+size = Vector2(1170, 54)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_narfq"]
+size = Vector2(1163, 49)
+
+[node name="UI" type="CanvasLayer" node_paths=PackedStringArray("label", "Gold", "Production", "Price", "Ammo")]
 script = ExtResource("1_tbv44")
 label = NodePath("Wood")
 Gold = NodePath("Gold")
 Production = NodePath("Production")
 Price = NodePath("Button")
+Ammo = NodePath("Label")
 
 [node name="Wood" type="Label" parent="."]
 visible = false
@@ -65,6 +78,62 @@ offset_right = 101.0
 offset_bottom = 114.0
 text = "-"
 
+[node name="Label" type="Label" parent="."]
+offset_left = 257.0
+offset_top = 15.0
+offset_right = 297.0
+offset_bottom = 38.0
+text = "000"
+
+[node name="Button2" type="Button" parent="."]
+offset_left = 253.0
+offset_top = 40.0
+offset_right = 437.0
+offset_bottom = 71.0
+text = "Buy +10 Ammo  (-100g)"
+
+[node name="moveright" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="moveright"]
+position = Vector2(1133, 323)
+shape = SubResource("RectangleShape2D_bhw7n")
+
+[node name="moveleft" type="Area2D" parent="."]
+position = Vector2(-3, 20)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="moveleft"]
+position = Vector2(23, 307)
+shape = SubResource("RectangleShape2D_4p1u4")
+
+[node name="moveup" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="moveup"]
+position = Vector2(573, 17)
+shape = SubResource("RectangleShape2D_4txfg")
+
+[node name="movedown" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="movedown"]
+position = Vector2(576.5, 628.5)
+shape = SubResource("RectangleShape2D_narfq")
+
+[node name="Button3" type="Button" parent="."]
+offset_left = 1029.0
+offset_top = 49.0
+offset_right = 1104.0
+offset_bottom = 80.0
+text = "Exit خروج"
+
 [connection signal="button_down" from="Button" to="." method="_on_button_button_down"]
 [connection signal="button_down" from="increase" to="." method="_on_increase_button_down"]
 [connection signal="button_down" from="decrease" to="." method="_on_decrease_button_down"]
+[connection signal="button_down" from="Button2" to="." method="_on_button_2_button_down"]
+[connection signal="mouse_entered" from="moveright" to="." method="_on_moveright_mouse_entered"]
+[connection signal="mouse_exited" from="moveright" to="." method="_on_moveright_mouse_exited"]
+[connection signal="mouse_entered" from="moveleft" to="." method="_on_moveleft_mouse_entered"]
+[connection signal="mouse_exited" from="moveleft" to="." method="_on_moveleft_mouse_exited"]
+[connection signal="mouse_entered" from="moveup" to="." method="_on_moveup_mouse_entered"]
+[connection signal="mouse_exited" from="moveup" to="." method="_on_moveup_mouse_exited"]
+[connection signal="mouse_entered" from="movedown" to="." method="_on_movedown_mouse_entered"]
+[connection signal="mouse_exited" from="movedown" to="." method="_on_movedown_mouse_exited"]
+[connection signal="button_down" from="Button3" to="." method="_on_button_3_button_down"]

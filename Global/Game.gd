@@ -7,6 +7,7 @@ var Wood = 10
 var Gold = 100
 var Coin = 0
 var Production = 0
+var Ammo = 0
 var Profit_margin = 100 # $/L
 var counter = 0
 var previous_margin 

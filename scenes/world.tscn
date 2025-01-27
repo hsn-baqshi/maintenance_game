@@ -1778,13 +1778,17 @@ limit_top = 0
 script = ExtResource("2_3hnqi")
 panelarea = NodePath("../UI/Panel2")
 
-[node name="UI" parent="." instance=ExtResource("1_ii5xf")]
+[node name="UI" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("1_ii5xf")]
+camera = NodePath("../Camera")
 
 [node name="Panel2" type="Panel" parent="UI"]
 z_index = 2
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 239.0
+offset_top = 115.0
+offset_right = 279.0
+offset_bottom = 155.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_dhy0r")
+metadata/_edit_use_anchors_ = true
 
 [node name="unit" type="Node2D" parent="."]
 position = Vector2(126, 105)
@@ -1817,6 +1821,7 @@ offset_left = 148.0
 offset_top = 7.0
 offset_right = 188.0
 offset_bottom = 30.0
+metadata/_edit_use_anchors_ = true
 
 [node name="spares" type="Node2D" parent="."]
 

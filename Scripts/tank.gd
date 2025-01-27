@@ -1,7 +1,7 @@
 extends StaticBody2D
 
 @export var level_bar : ProgressBar
-var level : float = 10
+@export var level : float = 100
 var reduce : bool = false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

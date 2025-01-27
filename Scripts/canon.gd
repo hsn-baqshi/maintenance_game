@@ -30,7 +30,8 @@ func _input(event: InputEvent) -> void:
 		select = true
 	elif !mouseEntered and event.is_action_pressed("LeftClick"):
 		select = false
-	if select and event.is_action_pressed("RightClick"):
+	if select and event.is_action_pressed("RightClick") and Game.Ammo > 0:
+		Game.Ammo -= 1
 		print("I am shooting")
 		var head_direction = get_global_mouse_position() - position
 		print("the head direction is ",head_direction)
