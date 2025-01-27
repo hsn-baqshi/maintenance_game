@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://cld4583sbxcc4"]
+[gd_scene load_steps=17 format=3 uid="uid://cld4583sbxcc4"]
 
 [ext_resource type="Script" path="res://Scripts/world.gd" id="1_ccfvt"]
 [ext_resource type="PackedScene" uid="uid://cqf2vrbyeo0ux" path="res://scenes/UI.tscn" id="1_ii5xf"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://drsn7mgoevtyq" path="res://scenes/pipe.tscn" id="10_y8y5d"]
 [ext_resource type="PackedScene" uid="uid://17dtd8w3jwee" path="res://scenes/canon.tscn" id="11_nvjjg"]
 [ext_resource type="PackedScene" uid="uid://d0sfja0olm3ls" path="res://scenes/tank.tscn" id="12_pqqjw"]
+[ext_resource type="PackedScene" uid="uid://mwgahwelu3jw" path="res://scenes/dummy_target.tscn" id="13_unfhg"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dhy0r"]
 bg_color = Color(0, 0, 0, 0.611765)
@@ -1842,3 +1843,6 @@ position = Vector2(210, 36)
 
 [node name="tank" parent="." instance=ExtResource("12_pqqjw")]
 position = Vector2(382, 81)
+
+[node name="RigidBody2D" parent="." instance=ExtResource("13_unfhg")]
+position = Vector2(199, 177)
