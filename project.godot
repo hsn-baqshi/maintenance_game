@@ -27,6 +27,7 @@ outlet=""
 inlet=""
 tank=""
 bullet=""
+resource=""
 
 [input]
 

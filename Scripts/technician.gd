@@ -20,15 +20,26 @@ var original_pos : Vector2 = Vector2(0,0)
 @export var energy : float = 100
 @export var energy_bar : ProgressBar 
 @export var energy_timer : Timer
+@export var move_arrow : GPUParticles2D
+var is_working : bool = false
 func _ready():
 	energy_bar.max_value=energy
 	initial_rank = rank_sprite.size.y
 	set_selected(selected)
 	add_to_group("units",true)
+	
+func working(val):
+	is_working = val
 
 func set_selected(value):
 	selected = value
 	box.visible = value 
+	if selected:
+		Game.building_cursor("technician")
+		Game.return_body(self)
+	elif !selected:
+		Game.building_cursor("")
+		Game.return_body(null)
 
 func set_carry(val: bool = true):
 	is_carrying = val
@@ -40,33 +51,32 @@ func add_rank(val):
 	rank += val
 	rank_sprite.size.y += val*initial_rank
 
-
 func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	pass
 
 func _input(event):
 	if event.is_action_pressed("LeftClick"):
-		#picked_up_object = null
 		if mouseEntered:
 			set_selected(true)
 		else:
 			set_selected(false)
-	if selected : 
-		if  event.is_action_pressed("RightClick"):
-			follow_cursor=true
-		if  event.is_action_released("RightClick"):
-			follow_cursor = false
+
+	if  event.is_action_pressed("RightClick") and selected :
+		follow_cursor=true
+		move_arrow.global_position = get_global_mouse_position()
+		move_arrow.emitting = true
+		
+	if  event.is_action_released("RightClick") and selected :
+		follow_cursor = false
 
 func _physics_process(delta):
-	#rank
 	if energy <= 0 :
 		speed = 0
 		energy_timer.start()
 
-	if follow_cursor :
-		if selected:
-			target = get_global_mouse_position()
-			anim.play("Walk Down")
+	if follow_cursor and selected :
+		target = get_global_mouse_position()
+		anim.play("Walk Down")
 	
 	if position.distance_to(target) > 10 and energy > 0:
 		velocity = position.direction_to(target)*speed
@@ -81,6 +91,8 @@ func _physics_process(delta):
 	#print("the velocity is ",abs(velocity))
 
 func _process(delta):
+	if is_working :
+		energy -= 0.1
 	energy_bar.value = energy
 	#if picked_up_object != null:
 		#print("the picked up object is : ",picked_up_object.position)
@@ -93,12 +105,7 @@ func _process(delta):
 		speed = slow_speed
 	elif !is_carrying:
 		speed = 50
-	if selected:
-		Game.building_cursor("technician")
-		Game.return_body(self)
-	elif !selected:
-		Game.building_cursor("")
-		Game.return_body(null)
+
 
 	if velocity.x > 0 :
 		spritee.flip_h = false

@@ -1,9 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://c418k6jh0lbut"]
+[gd_scene load_steps=17 format=3 uid="uid://c418k6jh0lbut"]
 
 [ext_resource type="Script" path="res://Scripts/technician.gd" id="1_c7asy"]
 [ext_resource type="Texture2D" uid="uid://b3ir1fwa0lp8y" path="res://assets/base_run_strip8.png" id="1_h1dk7"]
 [ext_resource type="Texture2D" uid="uid://guwvao47lvf" path="res://assets/rank.png" id="3_3w80t"]
 [ext_resource type="Texture2D" uid="uid://bedoaj63md0sa" path="res://assets/axe.png" id="4_qf2im"]
+[ext_resource type="Texture2D" uid="uid://vueyipe00530" path="res://assets/move_arrow.png" id="5_axkva"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ru6ot"]
 size = Vector2(9, 7)
@@ -78,7 +79,19 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r4s52"]
 size = Vector2(18, 22)
 
-[node name="technician" type="CharacterBody2D" node_paths=PackedStringArray("chill", "rank_sprite", "box", "anim", "spritee", "drop_button", "energy_bar", "energy_timer")]
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_kq1xb"]
+particles_animation = true
+particles_anim_h_frames = 5
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3ur4u"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+anim_speed_min = 4.0
+anim_speed_max = 4.0
+
+[node name="technician" type="CharacterBody2D" node_paths=PackedStringArray("chill", "rank_sprite", "box", "anim", "spritee", "drop_button", "energy_bar", "energy_timer", "move_arrow")]
 y_sort_enabled = true
 input_pickable = true
 motion_mode = 1
@@ -92,6 +105,7 @@ spritee = NodePath("Sprite2D")
 drop_button = NodePath("drop_item")
 energy_bar = NodePath("Box/Panel")
 energy_timer = NodePath("energy_timer")
+move_arrow = NodePath("move_cursor")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.5, 2.5)
@@ -154,6 +168,17 @@ theme_override_font_sizes/font_size = 8
 text = "lol"
 
 [node name="energy_timer" type="Timer" parent="."]
+
+[node name="move_cursor" type="GPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_kq1xb")
+emitting = false
+amount = 1
+process_material = SubResource("ParticleProcessMaterial_3ur4u")
+texture = ExtResource("5_axkva")
+lifetime = 0.3
+one_shot = true
+explosiveness = 1.0
+fixed_fps = 60
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

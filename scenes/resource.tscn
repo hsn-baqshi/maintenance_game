@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://dp56ts2xqm434"]
+
+[ext_resource type="Script" path="res://Scripts/resource.gd" id="1_2vd2p"]
+[ext_resource type="Texture2D" uid="uid://x5nnkt3dpko" path="res://assets/small_fan.png" id="1_6ewug"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_grbtj"]
+radius = 25.02
+
+[node name="Node2D" type="RigidBody2D" node_paths=PackedStringArray("coll") groups=["resource"]]
+gravity_scale = 0.0
+script = ExtResource("1_2vd2p")
+coll = NodePath("CollisionShape2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_grbtj")
+
+[node name="Sprite2D" type="Sprite2D" parent="CollisionShape2D"]
+scale = Vector2(3.69231, 3.69231)
+texture = ExtResource("1_6ewug")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cld4583sbxcc4"]
+[gd_scene load_steps=18 format=3 uid="uid://cld4583sbxcc4"]
 
 [ext_resource type="Script" path="res://Scripts/world.gd" id="1_ccfvt"]
 [ext_resource type="PackedScene" uid="uid://cqf2vrbyeo0ux" path="res://scenes/UI.tscn" id="1_ii5xf"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dgqi62g1hqhvc" path="res://scenes/tree.tscn" id="5_2v1of"]
 [ext_resource type="PackedScene" uid="uid://dghqjpjofrkg1" path="res://scenes/shaft.tscn" id="7_0rvy6"]
 [ext_resource type="PackedScene" uid="uid://bxyx85h5m304r" path="res://scenes/barracks.tscn" id="7_fdtyo"]
+[ext_resource type="PackedScene" uid="uid://dp56ts2xqm434" path="res://scenes/resource.tscn" id="7_pog63"]
 [ext_resource type="PackedScene" uid="uid://bas75hbmg3l78" path="res://scenes/pump.tscn" id="8_3tcgp"]
 [ext_resource type="PackedScene" uid="uid://c418k6jh0lbut" path="res://scenes/technician.tscn" id="9_q4psk"]
 [ext_resource type="PackedScene" uid="uid://drsn7mgoevtyq" path="res://scenes/pipe.tscn" id="10_y8y5d"]
@@ -1808,6 +1809,9 @@ position = Vector2(96, 55)
 
 [node name="Barracks" parent="Houses" instance=ExtResource("7_fdtyo")]
 position = Vector2(57, 119)
+
+[node name="Node2D" parent="Houses" instance=ExtResource("7_pog63")]
+position = Vector2(485, 100)
 
 [node name="pump" parent="." instance=ExtResource("8_3tcgp")]
 z_index = 1

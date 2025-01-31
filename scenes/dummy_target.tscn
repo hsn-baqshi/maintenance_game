@@ -9,23 +9,26 @@ size = Vector2(20, 22)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_llrqw"]
 size = Vector2(28, 30)
 
-[node name="RigidBody2D" type="RigidBody2D" node_paths=PackedStringArray("smoke")]
+[node name="RigidBody2D" type="RigidBody2D" node_paths=PackedStringArray("smoke", "coll")]
 mass = 100.0
 gravity_scale = 0.0
 script = ExtResource("1_vcgit")
 smoke = NodePath("CPUParticles2D")
+coll = NodePath("CollisionShape2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_hb1um")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="CollisionShape2D"]
+position = Vector2(0, -1)
 scale = Vector2(0.02, 0.02)
 texture = ExtResource("1_bw673")
 
-[node name="hit_box" type="Area2D" parent="."]
+[node name="hit_box" type="Area2D" parent="CollisionShape2D"]
+position = Vector2(0, -1)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="hit_box"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionShape2D/hit_box"]
 position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_llrqw")
 
@@ -41,4 +44,4 @@ initial_velocity_max = 20.0
 radial_accel_min = 10.0
 radial_accel_max = 10.0
 
-[connection signal="body_entered" from="hit_box" to="." method="_on_hit_box_body_entered"]
+[connection signal="body_entered" from="CollisionShape2D/hit_box" to="." method="_on_hit_box_body_entered"]
