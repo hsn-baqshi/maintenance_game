@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://7bnjvljpbrg0" path="res://assets/barracks.png" id="1_2gmxi"]
 [ext_resource type="Script" path="res://Scripts/barracks.gd" id="1_3tmn6"]
-[ext_resource type="Texture2D" uid="uid://bwgcgb8ueyueh" path="res://assets/building_cursor.png" id="3_7jgi1"]
+[ext_resource type="Texture2D" uid="uid://dkrm0xdngw2fo" path="res://assets/building_cursor.png" id="3_7jgi1"]
 [ext_resource type="Texture2D" uid="uid://r8vww0weknh8" path="res://icon.svg" id="4_rlsvr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h875d"]

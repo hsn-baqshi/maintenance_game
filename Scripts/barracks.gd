@@ -55,7 +55,6 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	select_value.text = str(select)
 	select.visible = selected
-
 	if is_pump:
 		if bar :
 			bar.value = currTime
@@ -63,7 +62,6 @@ func _process(delta: float) -> void:
 			body_entered.add_rank(1)
 			treeChopped()
 			currTime = totalTime
-			
 
 		if fixing_counter > 0 :
 			fixing_counter -= delta
@@ -120,7 +118,6 @@ func _input(event: InputEvent) -> void:
 
 func _on_mouse_entered() -> void:
 	if Game.unit_selected == "technician" and age < initial_age and Game.selected_body.return_carrying() and Game.Gold >= 100 :
-		
 		#print("should be YES mouseEntered ", mouseEntered)
 		Input.set_custom_mouse_cursor(building_cursor_icon)
 		fixing_counter = fixing_time
@@ -196,6 +193,7 @@ func treeChopped():
 	age = initial_age
 	Game.Gold -= 100
 	bar.visible=false
+	body_entered.picked_up_object.queue_free()
 
 
 func _on_stop_button_down() -> void:

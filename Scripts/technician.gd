@@ -22,6 +22,7 @@ var original_pos : Vector2 = Vector2(0,0)
 @export var energy_timer : Timer
 @export var move_arrow : GPUParticles2D
 var is_working : bool = false
+@export var drop_item_button : Button
 func _ready():
 	energy_bar.max_value=energy
 	initial_rank = rank_sprite.size.y
@@ -76,7 +77,9 @@ func _physics_process(delta):
 
 	if follow_cursor and selected :
 		target = get_global_mouse_position()
-		anim.play("Walk Down")
+		#anim.play("Walk down")
+	#if velocity <= abs(Vector2(0,0)):
+		#anim.play("idle")
 	
 	if position.distance_to(target) > 10 and energy > 0:
 		velocity = position.direction_to(target)*speed
@@ -106,7 +109,11 @@ func _process(delta):
 	elif !is_carrying:
 		speed = 50
 
-
+	if abs(velocity.x) > 0 or abs(velocity.y) > 0:
+		anim.play("Walk Down")
+		#anim.play("idle")
+	else:
+		anim.play("idle")
 	if velocity.x > 0 :
 		spritee.flip_h = false
 	elif velocity.x < 0 :
@@ -142,12 +149,14 @@ func pick_up_object(object,remove=false):
 		add_child(picked_up_object) 
 		print(get_children())
 		picked_up_object.set_picked(true)
-		picked_up_object.position = Vector2(0,0)
+		picked_up_object.position = Vector2(20,-20)
 
 	if picked_up_object != null and remove :
 		remove_child(object)
 		get_parent().add_child(object)
 		picked_up_object.set_picked(false)
+		#drop_item_button.icon = picked_up_object.spare_image building_cursor_icon
+		drop_item_button.icon = picked_up_object.building_cursor_icon
 		object.global_position = global_position
 		picked_up_object=null
 

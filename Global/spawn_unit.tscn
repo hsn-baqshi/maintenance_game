@@ -1,14 +1,15 @@
 [gd_scene load_steps=4 format=3 uid="uid://cihi32vxnwwcs"]
 
 [ext_resource type="Script" path="res://Global/spawn_unit.gd" id="1_cwdsu"]
-[ext_resource type="Texture2D" uid="uid://b3ir1fwa0lp8y" path="res://assets/base_run_strip8.png" id="2_73jaq"]
+[ext_resource type="Texture2D" uid="uid://eenhhr6fidpg" path="res://assets/push_stand.png" id="2_s867l"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xemo3"]
 size = Vector2(178, 642)
 
-[node name="SpawnUnit" type="Node2D" node_paths=PackedStringArray("spawning_bar")]
+[node name="SpawnUnit" type="Node2D" node_paths=PackedStringArray("spawning_bar", "spawn_this_unit")]
 script = ExtResource("1_cwdsu")
 spawning_bar = NodePath("ProgressBar")
+spawn_this_unit = NodePath("Label")
 
 [node name="Panel" type="Panel" parent="."]
 offset_right = 184.0
@@ -28,31 +29,31 @@ offset_right = 150.0
 offset_bottom = 29.0
 text = "spawn this unit ?"
 
+[node name="ProgressBar" type="ProgressBar" parent="."]
+y_sort_enabled = true
+offset_left = 13.0
+offset_top = 34.0
+offset_right = 87.0
+offset_bottom = 103.0
+
 [node name="Yes" type="Button" parent="."]
-offset_left = 64.0
-offset_top = 56.0
-offset_right = 99.0
-offset_bottom = 87.0
-text = "Yes"
+z_index = 1
+y_sort_enabled = true
+offset_left = 12.0
+offset_top = 33.0
+offset_right = 88.0
+offset_bottom = 105.0
+text = "
+"
+icon = ExtResource("2_s867l")
+clip_text = true
 
 [node name="No" type="Button" parent="."]
-offset_left = 135.0
-offset_top = 56.0
-offset_right = 166.0
-offset_bottom = 87.0
-text = "No"
-
-[node name="BaseRunStrip8" type="Sprite2D" parent="."]
-position = Vector2(48, 74)
-scale = Vector2(3, 3)
-texture = ExtResource("2_73jaq")
-hframes = 7
-
-[node name="ProgressBar" type="ProgressBar" parent="."]
-offset_left = 26.0
-offset_top = 108.0
-offset_right = 160.0
-offset_bottom = 135.0
+offset_left = 12.0
+offset_top = 106.0
+offset_right = 88.0
+offset_bottom = 137.0
+text = "Cancel"
 
 [connection signal="mouse_entered" from="Panel" to="." method="_on_panel_mouse_entered"]
 [connection signal="mouse_exited" from="Panel" to="." method="_on_panel_mouse_exited"]

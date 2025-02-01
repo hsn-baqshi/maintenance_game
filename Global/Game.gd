@@ -31,7 +31,7 @@ func _process(delta: float) -> void:
 		Profit_margin=gen_rand(0.3,1)
 		
 
-func spawnUnit(pos,return_something = false):
+func spawnUnit(pos,choice=1,return_something = false):
 	var path = get_tree().get_root().get_node("World/UI")
 	var hasSpawn = false
 	

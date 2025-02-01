@@ -5,7 +5,7 @@ extends StaticBody2D
 @export var level : float = 10
 var reduce : bool = false
 var mouseEntered : bool = false
-var operate_cursor_icon  = load("res://assets/gear_cursor.png")
+var operate_cursor_icon  = load("res://assets/gear_cursor-export.png")
 var is_carried : bool = false
 @export var suction_area : Area2D
 var resource = null
@@ -18,7 +18,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if resource != null and level < 100:
 		level += 0.1
-		resource.get_smaller(0.9999)
+		resource.get_smaller(0.999)
 	if is_carried :
 		suction_area.global_position = get_global_mouse_position() - Vector2(50,0)
 	level_bar.value = level

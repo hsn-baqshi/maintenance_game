@@ -5,6 +5,7 @@ var select : bool = false
 @export var head : AnimatedSprite2D
 @export var selected_borders : Panel
 var mouseEntered : bool = false
+@export var tank_canon : bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -15,7 +16,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	selected_borders.visible = select
 	if select:
-		var head_direction = get_global_mouse_position() - position
+		var head_direction = get_global_mouse_position() - global_position
 		head_direction = head_direction.angle()+PI/2
 		head.rotation = head_direction
 		#print(head.rotation)
@@ -33,11 +34,12 @@ func _input(event: InputEvent) -> void:
 	if select and event.is_action_pressed("RightClick") and Game.Ammo > 0:
 		Game.Ammo -= 1
 		print("I am shooting")
-		var head_direction = get_global_mouse_position() - position
+		var head_direction = get_global_mouse_position() - global_position
 		print("the head direction is ",head_direction)
 		var tech = tech_unit.instantiate()
 		recoil(head_direction)
-		tech.position = global_position
+		#tech.position = global_position
+		tech.global_position = global_position
 		tech.linear_velocity = 500*head_direction.normalized()
 		get_parent().add_child(tech)
 

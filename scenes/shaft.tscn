@@ -1,33 +1,31 @@
 [gd_scene load_steps=5 format=3 uid="uid://dghqjpjofrkg1"]
 
 [ext_resource type="Script" path="res://Scripts/shaft.gd" id="1_5am1s"]
-[ext_resource type="Texture2D" uid="uid://bedoaj63md0sa" path="res://assets/axe.png" id="1_o1m1n"]
+[ext_resource type="Texture2D" uid="uid://1sc3l0lesdxh" path="res://assets/bucket.png" id="2_yo0jg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t6paw"]
-size = Vector2(6, 26)
+size = Vector2(24, 24)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1v7ov"]
-size = Vector2(24, 37)
+size = Vector2(32, 36)
 
-[node name="shaft" type="StaticBody2D" node_paths=PackedStringArray("coll") groups=["spare"]]
+[node name="shaft" type="StaticBody2D" node_paths=PackedStringArray("spare_image", "coll") groups=["spare"]]
 collision_layer = 2
 collision_mask = 2
 input_pickable = true
 script = ExtResource("1_5am1s")
+spare_image = NodePath("Sprite2D")
 coll = NodePath("CollisionShape2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1, 4)
 shape = SubResource("RectangleShape2D_t6paw")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-rotation = 0.785398
-texture = ExtResource("1_o1m1n")
+texture = ExtResource("2_yo0jg")
 
 [node name="pickuparea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="pickuparea"]
-position = Vector2(0, 3.5)
 shape = SubResource("RectangleShape2D_1v7ov")
 debug_color = Color(0.65765, 0.51428, 0, 0.247059)
 

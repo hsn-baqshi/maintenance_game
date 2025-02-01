@@ -1,9 +1,9 @@
-[gd_scene load_steps=16 format=3 uid="uid://17dtd8w3jwee"]
+[gd_scene load_steps=17 format=3 uid="uid://dww6jbbc4cax2"]
 
-[ext_resource type="Script" path="res://Scripts/canon.gd" id="1_abvem"]
-[ext_resource type="Texture2D" uid="uid://7bnjvljpbrg0" path="res://assets/barracks.png" id="2_1ngma"]
-[ext_resource type="Texture2D" uid="uid://deij0gnfkvgsn" path="res://assets/PIPE.png" id="3_itmbw"]
-[ext_resource type="Texture2D" uid="uid://cpsuahahdlg0f" path="res://assets/PIPE-sheet.png" id="4_mi2jf"]
+[ext_resource type="Script" path="res://Scripts/canon.gd" id="1_evncv"]
+[ext_resource type="Texture2D" uid="uid://7bnjvljpbrg0" path="res://assets/barracks.png" id="2_04ey1"]
+[ext_resource type="Texture2D" uid="uid://deij0gnfkvgsn" path="res://assets/PIPE.png" id="3_ehydh"]
+[ext_resource type="Texture2D" uid="uid://cpsuahahdlg0f" path="res://assets/PIPE-sheet.png" id="4_sjhqa"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2nmo3"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -22,35 +22,35 @@ corner_radius_bottom_left = 2
 size = Vector2(34, 37)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_i2cqx"]
-atlas = ExtResource("4_mi2jf")
+atlas = ExtResource("4_sjhqa")
 region = Rect2(0, 0, 23, 46)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g1k7r"]
-atlas = ExtResource("4_mi2jf")
+atlas = ExtResource("4_sjhqa")
 region = Rect2(23, 0, 23, 46)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tbcwt"]
-atlas = ExtResource("4_mi2jf")
+atlas = ExtResource("4_sjhqa")
 region = Rect2(46, 0, 23, 46)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gf301"]
-atlas = ExtResource("4_mi2jf")
+atlas = ExtResource("4_sjhqa")
 region = Rect2(69, 0, 23, 46)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ue6vv"]
-atlas = ExtResource("4_mi2jf")
+atlas = ExtResource("4_sjhqa")
 region = Rect2(92, 0, 23, 46)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6ynw1"]
-atlas = ExtResource("4_mi2jf")
+atlas = ExtResource("4_sjhqa")
 region = Rect2(115, 0, 23, 46)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yqjun"]
-atlas = ExtResource("4_mi2jf")
+atlas = ExtResource("4_sjhqa")
 region = Rect2(138, 0, 23, 46)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qmmiu"]
-atlas = ExtResource("4_mi2jf")
+atlas = ExtResource("4_sjhqa")
 region = Rect2(161, 0, 23, 46)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_fgcug"]
@@ -85,13 +85,22 @@ animations = [{
 "speed": 30.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wajkq"]
+
 [node name="canon" type="StaticBody2D" node_paths=PackedStringArray("head", "selected_borders")]
+position = Vector2(72, 60)
 collision_layer = 2
 collision_mask = 2
 input_pickable = true
-script = ExtResource("1_abvem")
+script = ExtResource("1_evncv")
 head = NodePath("AnimatedSprite2D")
 selected_borders = NodePath("borders_selected")
+
+[node name="Pipe" type="Sprite2D" parent="."]
+modulate = Color(0.325441, 0.325441, 0.325441, 1)
+position = Vector2(1, -1.5)
+scale = Vector2(1.69565, 1.425)
+texture = ExtResource("3_ehydh")
 
 [node name="borders_selected" type="Panel" parent="."]
 offset_left = -19.0
@@ -99,16 +108,11 @@ offset_top = -20.0
 offset_right = 21.0
 offset_bottom = 20.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_2nmo3")
-metadata/_edit_use_anchors_ = true
 
 [node name="Barracks" type="Sprite2D" parent="."]
 modulate = Color(0.400024, 0.613034, 0.545111, 1)
 scale = Vector2(0.4, 0.4)
-texture = ExtResource("2_1ngma")
-
-[node name="Pipe" type="Sprite2D" parent="."]
-visible = false
-texture = ExtResource("3_itmbw")
+texture = ExtResource("2_04ey1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_sqxv2")
@@ -119,6 +123,12 @@ sprite_frames = SubResource("SpriteFrames_fgcug")
 animation = &"shoot"
 frame = 7
 frame_progress = 1.0
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-24, -1)
+shape = SubResource("RectangleShape2D_wajkq")
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

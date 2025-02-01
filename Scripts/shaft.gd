@@ -1,6 +1,7 @@
 extends StaticBody2D
 
 var building_cursor_icon  = load("res://assets/building_cursor.png")
+@export var spare_image : Sprite2D
 var mouseEntered = false
 var pickable : bool = false
 var go_pick : bool = false
