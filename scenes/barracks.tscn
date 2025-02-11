@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://bxyx85h5m304r"]
 
 [ext_resource type="Texture2D" uid="uid://7bnjvljpbrg0" path="res://assets/barracks.png" id="1_2gmxi"]
-[ext_resource type="Script" path="res://Scripts/barracks.gd" id="1_3tmn6"]
+[ext_resource type="Script" path="res://Scripts/realbarracks.gd" id="1_blo6s"]
 [ext_resource type="Texture2D" uid="uid://dkrm0xdngw2fo" path="res://assets/building_cursor.png" id="3_7jgi1"]
 [ext_resource type="Texture2D" uid="uid://r8vww0weknh8" path="res://icon.svg" id="4_rlsvr"]
 
@@ -32,13 +32,17 @@ bg_color = Color(1, 0.305882, 0.211765, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mtofj"]
 bg_color = Color(0.346066, 0.701781, 0, 1)
 
-[node name="Barracks" type="StaticBody2D" node_paths=PackedStringArray("select", "age_label", "select_value")]
+[node name="Barracks" type="StaticBody2D" node_paths=PackedStringArray("select", "select_label")]
 input_pickable = true
-script = ExtResource("1_3tmn6")
-max_production = 0
+script = ExtResource("1_blo6s")
 select = NodePath("Box")
-age_label = NodePath("Label")
-select_value = NodePath("Label2")
+select_label = NodePath("Label")
+
+[node name="Panel" type="Panel" parent="."]
+offset_left = -43.0
+offset_top = -29.0
+offset_right = 43.0
+offset_bottom = 49.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_h875d")
@@ -56,11 +60,10 @@ mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_7lppg")
 
 [node name="Label" type="Label" parent="."]
-visible = false
-offset_left = 26.0
-offset_top = -41.0
-offset_right = 95.0
-offset_bottom = -18.0
+offset_left = -36.0
+offset_top = 45.0
+offset_right = 33.0
+offset_bottom = 68.0
 theme_override_font_sizes/font_size = 7
 text = "Age : 100"
 

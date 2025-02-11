@@ -1,12 +1,12 @@
 [gd_scene load_steps=4 format=3 uid="uid://dp56ts2xqm434"]
 
 [ext_resource type="Script" path="res://Scripts/resource.gd" id="1_2vd2p"]
-[ext_resource type="Texture2D" uid="uid://x5nnkt3dpko" path="res://assets/small_fan.png" id="1_6ewug"]
+[ext_resource type="Texture2D" uid="uid://bl0vxfqrq1j38" path="res://assets/objects/rock_crumb.png" id="2_hrl38"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_grbtj"]
 radius = 25.02
 
-[node name="Node2D" type="RigidBody2D" node_paths=PackedStringArray("coll") groups=["resource"]]
+[node name="resource" type="RigidBody2D" node_paths=PackedStringArray("coll") groups=["resource"]]
 gravity_scale = 0.0
 script = ExtResource("1_2vd2p")
 coll = NodePath("CollisionShape2D")
@@ -15,5 +15,41 @@ coll = NodePath("CollisionShape2D")
 shape = SubResource("CircleShape2D_grbtj")
 
 [node name="Sprite2D" type="Sprite2D" parent="CollisionShape2D"]
-scale = Vector2(3.69231, 3.69231)
-texture = ExtResource("1_6ewug")
+position = Vector2(3, -11)
+scale = Vector2(2.30769, 2.30769)
+texture = ExtResource("2_hrl38")
+
+[node name="Sprite2D2" type="Sprite2D" parent="CollisionShape2D"]
+position = Vector2(-12.3077, -9.99999)
+scale = Vector2(2.30769, 2.30769)
+texture = ExtResource("2_hrl38")
+
+[node name="Sprite2D3" type="Sprite2D" parent="CollisionShape2D"]
+position = Vector2(12, -2)
+scale = Vector2(2.30769, 2.30769)
+texture = ExtResource("2_hrl38")
+
+[node name="Sprite2D4" type="Sprite2D" parent="CollisionShape2D"]
+position = Vector2(-16, 3)
+scale = Vector2(1.46154, 1.46154)
+texture = ExtResource("2_hrl38")
+
+[node name="Sprite2D5" type="Sprite2D" parent="CollisionShape2D"]
+position = Vector2(4, 6)
+scale = Vector2(1.76923, 1.76923)
+texture = ExtResource("2_hrl38")
+
+[node name="Sprite2D6" type="Sprite2D" parent="CollisionShape2D"]
+position = Vector2(-6, 11)
+scale = Vector2(2.23077, 2.23077)
+texture = ExtResource("2_hrl38")
+
+[node name="Sprite2D7" type="Sprite2D" parent="CollisionShape2D"]
+position = Vector2(6, 11)
+scale = Vector2(2.15385, 2.15385)
+texture = ExtResource("2_hrl38")
+
+[node name="Sprite2D8" type="Sprite2D" parent="CollisionShape2D"]
+position = Vector2(-1, -2)
+scale = Vector2(2.15385, 2.15385)
+texture = ExtResource("2_hrl38")

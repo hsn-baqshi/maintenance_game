@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://d0sfja0olm3ls"]
+[gd_scene load_steps=14 format=3 uid="uid://d0sfja0olm3ls"]
 
 [ext_resource type="Script" path="res://Scripts/tank.gd" id="1_3h3ar"]
 [ext_resource type="Texture2D" uid="uid://dx1mkphb8xqs1" path="res://assets/tank.png" id="1_d56pb"]
-[ext_resource type="Texture2D" uid="uid://dw1q76wv0uw8b" path="res://assets/gear_cursor.png" id="3_7pd6f"]
-[ext_resource type="Texture2D" uid="uid://deij0gnfkvgsn" path="res://assets/PIPE.png" id="4_d5gnc"]
+[ext_resource type="Texture2D" uid="uid://f7geepuu824t" path="res://assets/objects/short pipe.png" id="3_ises4"]
+[ext_resource type="Texture2D" uid="uid://cfwnw6m56ejke" path="res://assets/objects/time_column/collectible_piece.png" id="3_vu4qi"]
+[ext_resource type="Texture2D" uid="uid://3ursxopa8tys" path="res://assets/objects/SANDSTONE.png" id="5_hrun0"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1gqn6"]
 bg_color = Color(0.34902, 0.34902, 0.34902, 1)
@@ -17,16 +18,27 @@ size = Vector2(47, 35)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ksop4"]
 size = Vector2(72, 49)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_18l8h"]
-radius = 6.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dphlc"]
+size = Vector2(8, 6)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t5yuw"]
+size = Vector2(20, 7.5)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tf2lb"]
 radius = 14.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_16bjn"]
 
 [node name="tank" type="StaticBody2D" node_paths=PackedStringArray("level_bar", "suction_area") groups=["inlet", "outlet", "tank"]]
 script = ExtResource("1_3h3ar")
 level_bar = NodePath("ProgressBar")
 suction_area = NodePath("suction_area")
+
+[node name="Panel" type="Panel" parent="."]
+offset_left = -34.0
+offset_top = 18.0
+offset_right = 33.0
+offset_bottom = 22.0
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
 offset_left = 23.0
@@ -52,7 +64,73 @@ texture = ExtResource("1_d56pb")
 position = Vector2(0, 2.5)
 shape = SubResource("RectangleShape2D_ksop4")
 
+[node name="PinJoint2D4" type="PinJoint2D" parent="."]
+position = Vector2(17, 0)
+node_a = NodePath("..")
+node_b = NodePath("../chain1")
+
+[node name="PinJoint2D" type="PinJoint2D" parent="."]
+position = Vector2(39, 0)
+node_a = NodePath("../chain1")
+node_b = NodePath("../chain2")
+
+[node name="PinJoint2D2" type="PinJoint2D" parent="."]
+position = Vector2(59, 0)
+node_a = NodePath("../chain2")
+node_b = NodePath("../chain3")
+
+[node name="PinJoint2D3" type="PinJoint2D" parent="."]
+position = Vector2(79, 0)
+rotation = -1.57079
+node_a = NodePath("../chain3")
+node_b = NodePath("../chain4")
+
+[node name="chain1" type="RigidBody2D" parent="."]
+position = Vector2(29, 0)
+gravity_scale = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="chain1"]
+shape = SubResource("RectangleShape2D_dphlc")
+
+[node name="Sprite2D" type="Sprite2D" parent="chain1"]
+texture = ExtResource("3_ises4")
+
+[node name="chain2" type="RigidBody2D" parent="."]
+position = Vector2(49, 0)
+gravity_scale = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="chain2"]
+shape = SubResource("RectangleShape2D_dphlc")
+
+[node name="Sprite2D" type="Sprite2D" parent="chain2"]
+texture = ExtResource("3_ises4")
+
+[node name="chain3" type="RigidBody2D" parent="."]
+position = Vector2(69, 0)
+gravity_scale = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="chain3"]
+shape = SubResource("RectangleShape2D_dphlc")
+
+[node name="Sprite2D" type="Sprite2D" parent="chain3"]
+texture = ExtResource("3_ises4")
+
+[node name="chain4" type="RigidBody2D" parent="."]
+position = Vector2(88, 0)
+collision_layer = 9
+collision_mask = 9
+gravity_scale = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="chain4"]
+shape = SubResource("RectangleShape2D_dphlc")
+
+[node name="Sprite2D" type="Sprite2D" parent="chain4"]
+position = Vector2(-4.76837e-07, 0)
+scale = Vector2(0.461538, 1)
+texture = ExtResource("3_ises4")
+
 [node name="suction_area" type="Area2D" parent="."]
+position = Vector2(42, -3)
 
 [node name="suction" type="RigidBody2D" parent="suction_area"]
 position = Vector2(46, 4)
@@ -60,30 +138,46 @@ collision_layer = 8
 collision_mask = 8
 gravity_scale = 0.0
 
+[node name="BuildingCursor2" type="Sprite2D" parent="suction_area/suction"]
+visible = false
+position = Vector2(0, -1)
+scale = Vector2(1.75, 1.75)
+texture = ExtResource("3_vu4qi")
+hframes = 6
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="suction_area/suction"]
-position = Vector2(1, -1)
-shape = SubResource("CircleShape2D_18l8h")
+position = Vector2(1, -12)
+shape = SubResource("RectangleShape2D_t5yuw")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="suction_area/suction"]
+position = Vector2(1, 8)
+shape = SubResource("RectangleShape2D_t5yuw")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="suction_area/suction"]
+position = Vector2(-11, -1)
+rotation = 1.57079
+shape = SubResource("RectangleShape2D_t5yuw")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="suction_area/suction"]
+position = Vector2(11, -1)
+rotation = 1.57079
+shape = SubResource("RectangleShape2D_t5yuw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="suction_area"]
 position = Vector2(47, 2)
 shape = SubResource("CircleShape2D_tf2lb")
 
-[node name="BuildingCursor" type="Sprite2D" parent="suction_area/CollisionShape2D"]
-position = Vector2(-1, 1)
-scale = Vector2(1.75, 1.75)
-texture = ExtResource("3_7pd6f")
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+position = Vector2(88, -32)
+collision_layer = 9
+collision_mask = 9
+mass = 0.001
 
-[node name="Line2D" type="Line2D" parent="suction_area"]
-position = Vector2(18, -32)
-points = PackedVector2Array(28, 35, 22, 35, 17, 36, 11, 37)
-width = 1.0
-texture = ExtResource("4_d5gnc")
-texture_mode = 1
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+shape = SubResource("CircleShape2D_16bjn")
 
-[node name="PinJoint2D" type="PinJoint2D" parent="suction_area"]
-position = Vector2(46, 3)
-node_a = NodePath("../suction")
-node_b = NodePath("../..")
+[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D"]
+texture = ExtResource("5_hrun0")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

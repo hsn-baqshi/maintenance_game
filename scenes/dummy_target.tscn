@@ -1,13 +1,13 @@
 [gd_scene load_steps=5 format=3 uid="uid://mwgahwelu3jw"]
 
-[ext_resource type="Texture2D" uid="uid://ctcdjsrgiv5wt" path="res://assets/17480.webp" id="1_bw673"]
 [ext_resource type="Script" path="res://Scripts/dummy_target.gd" id="1_vcgit"]
+[ext_resource type="Texture2D" uid="uid://d3cy14memkl6l" path="res://assets/tree_single.png" id="2_uiv5p"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hb1um"]
-size = Vector2(20, 22)
+size = Vector2(12, 36)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_llrqw"]
-size = Vector2(28, 30)
+size = Vector2(28, 39)
 
 [node name="RigidBody2D" type="RigidBody2D" node_paths=PackedStringArray("smoke", "coll")]
 mass = 100.0
@@ -17,19 +17,16 @@ smoke = NodePath("CPUParticles2D")
 coll = NodePath("CollisionShape2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_hb1um")
 
 [node name="Sprite2D" type="Sprite2D" parent="CollisionShape2D"]
-position = Vector2(0, -1)
-scale = Vector2(0.02, 0.02)
-texture = ExtResource("1_bw673")
+texture = ExtResource("2_uiv5p")
 
 [node name="hit_box" type="Area2D" parent="CollisionShape2D"]
 position = Vector2(0, -1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionShape2D/hit_box"]
-position = Vector2(0, 1)
+position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_llrqw")
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]

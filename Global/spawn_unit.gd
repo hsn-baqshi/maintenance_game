@@ -40,8 +40,6 @@ func spawn_tech(val) :
 	unitPath.get_units()
 
 
-	
-
 func _on_yes_pressed():
 	#spawning_bar.position = housePos #+ Vector2(0,-100)
 	if Game.Gold>= technician_cost and spawn_unit_timer <= 0 :
@@ -62,13 +60,12 @@ func _on_no_pressed():
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("LeftClick") and !mouseEntered:
-		#visible=false
 		if spawn_unit_timer <= 0 or spawn_unit_timer >= spawning_time :
 			queue_free()
 	if event.is_action_pressed("LeftClick") and mouseEntered:
 		visible=true
-		
-		
+
+
 func _on_area_2d_mouse_entered() -> void:
 	mouseEntered = true
 	print(mouseEntered)

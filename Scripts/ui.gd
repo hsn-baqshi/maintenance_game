@@ -30,16 +30,14 @@ func _process(delta: float) -> void:
 		camera.position.y += 1
 	
 	#label.text = "Wood : " + str(Game.Wood)
-	Ammo.text = "Ammo : " + str(Game.Ammo)
-	Gold.text = "Gold : " + str(Game.Gold) 
-	Production.text = "Production : " + str(Game.Production) + " L"
+	Ammo.text = "Ammo : " + str(snapped(Game.Ammo,0.01))
+	Gold.text = "Gold : " + str(snapped(Game.Gold,0.01)) 
+	Production.text = "Production : " + str(snapped(Game.Production,0.01)) + " L"
 	Price.text = "Sell : " + str(snapped(amount,0.01)) + "L @"+ str(snapped(Game.Profit_margin,0.01)) + " $/L , GAIN +" + str(snapped(amount*Game.Profit_margin,0.01))
 func _on_button_button_down() -> void:
 	if Game.Production >= amount :
 		Game.Production -= amount
 		Game.Gold += amount*Game.Profit_margin
-
-
 
 func _on_increase_button_down() -> void:
 	amount += 1

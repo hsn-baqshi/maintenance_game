@@ -1,10 +1,10 @@
 [gd_scene load_steps=5 format=3 uid="uid://dghqjpjofrkg1"]
 
 [ext_resource type="Script" path="res://Scripts/shaft.gd" id="1_5am1s"]
-[ext_resource type="Texture2D" uid="uid://1sc3l0lesdxh" path="res://assets/bucket.png" id="2_yo0jg"]
+[ext_resource type="Texture2D" uid="uid://f7geepuu824t" path="res://assets/objects/short pipe.png" id="2_xqp6k"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t6paw"]
-size = Vector2(24, 24)
+size = Vector2(24, 7)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1v7ov"]
 size = Vector2(32, 36)
@@ -18,10 +18,11 @@ spare_image = NodePath("Sprite2D")
 coll = NodePath("CollisionShape2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_t6paw")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_yo0jg")
+texture = ExtResource("2_xqp6k")
 
 [node name="pickuparea" type="Area2D" parent="."]
 

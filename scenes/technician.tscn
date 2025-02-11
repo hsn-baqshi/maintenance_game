@@ -165,6 +165,7 @@ anim_speed_min = 4.0
 anim_speed_max = 4.0
 
 [node name="technician" type="CharacterBody2D" node_paths=PackedStringArray("chill", "rank_sprite", "box", "anim", "spritee", "drop_button", "energy_bar", "energy_timer", "move_arrow", "drop_item_button")]
+z_index = 1
 y_sort_enabled = true
 input_pickable = true
 motion_mode = 1
@@ -180,6 +181,12 @@ energy_bar = NodePath("Box/Panel")
 energy_timer = NodePath("energy_timer")
 move_arrow = NodePath("move_cursor")
 drop_item_button = NodePath("drop_item")
+
+[node name="Panel" type="Panel" parent="."]
+offset_left = -10.0
+offset_top = 7.0
+offset_right = 10.0
+offset_bottom = 11.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.5, 2.5)

@@ -41,7 +41,7 @@ size = Vector2(28, 20)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6yyt0"]
 size = Vector2(28, 23)
 
-[node name="pump" type="StaticBody2D" node_paths=PackedStringArray("bar", "timer", "fan", "age_bar", "increase_button", "decrease_button", "stop_button", "accelerate_button", "production_rate_bar", "select", "age_label", "select_value")]
+[node name="pump" type="StaticBody2D" node_paths=PackedStringArray("bar", "timer", "fan", "age_bar", "increase_button", "decrease_button", "stop_button", "accelerate_button", "production_rate_bar", "select", "age_label", "select_value", "cost_label")]
 position = Vector2(62, 58)
 input_pickable = true
 script = ExtResource("1_1bdfm")
@@ -58,6 +58,14 @@ production_rate_bar = NodePath("ProgressBar")
 select = NodePath("Box")
 age_label = NodePath("Label")
 select_value = NodePath("Label2")
+cost_label = NodePath("cost")
+
+[node name="Panel" type="Panel" parent="."]
+y_sort_enabled = true
+offset_left = -11.0
+offset_top = 21.0
+offset_right = 21.0
+offset_bottom = 30.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(5, 6)
@@ -190,6 +198,14 @@ position = Vector2(26, -27)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="inlet_area"]
 position = Vector2(5, 37)
 shape = SubResource("RectangleShape2D_6yyt0")
+
+[node name="cost" type="Label" parent="."]
+offset_left = -16.0
+offset_top = 13.0
+offset_right = 29.0
+offset_bottom = 36.0
+theme_override_font_sizes/font_size = 10
+text = "-100G"
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

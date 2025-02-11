@@ -93,27 +93,43 @@ offset_bottom = 71.0
 text = "Buy +10 Ammo  (-100g)"
 
 [node name="moveright" type="Area2D" parent="."]
+z_index = 10
+y_sort_enabled = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="moveright"]
+z_index = 10
+y_sort_enabled = true
 position = Vector2(1133, 323)
 shape = SubResource("RectangleShape2D_bhw7n")
 
 [node name="moveleft" type="Area2D" parent="."]
+z_index = 10
+y_sort_enabled = true
 position = Vector2(-3, 20)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="moveleft"]
+z_index = 10
+y_sort_enabled = true
 position = Vector2(23, 307)
 shape = SubResource("RectangleShape2D_4p1u4")
 
 [node name="moveup" type="Area2D" parent="."]
+z_index = 10
+y_sort_enabled = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="moveup"]
+z_index = 10
+y_sort_enabled = true
 position = Vector2(573, 17)
 shape = SubResource("RectangleShape2D_4txfg")
 
 [node name="movedown" type="Area2D" parent="."]
+z_index = 10
+y_sort_enabled = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="movedown"]
+z_index = 10
+y_sort_enabled = true
 position = Vector2(576.5, 628.5)
 shape = SubResource("RectangleShape2D_narfq")
 

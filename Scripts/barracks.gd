@@ -26,12 +26,10 @@ var mouseEntered = false
 @export var select : Panel
 var selected = false
 var building_cursor_icon  = load("res://assets/building_cursor.png")
-#var regular_cursor_icon  = load("res://assets/back_punch.png")
 var counter : float = 0.0
 @export var initial_age : int = 1000
 var age = 1000
 @export var age_label : Label
-# Called when the node enters the scene tree for the first time.
 @export var connected : bool = false
 var fixing_counter : float = 0
 var fixing_time : float = 5
@@ -39,7 +37,13 @@ var fixing_time : float = 5
 var outlet : bool = false
 var inlet : bool = false
 var inlet_source 
+@export var cost_label : Label
+var UI
+
+
 func _ready() -> void:
+	UI = get_parent().get_node("UI")
+	cost_label.visible = false
 	inlet_source = null
 	currTime = totalTime
 	if bar :
@@ -53,6 +57,8 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	if cost_label.visible :
+		cost_label.global_position = get_global_mouse_position()
 	select_value.text = str(select)
 	select.visible = selected
 	if is_pump:
@@ -68,13 +74,10 @@ func _process(delta: float) -> void:
 			if unit_nearby and fixing_counter <= 0 :
 				age = initial_age
 				fixable = false
-
 		if !outlet or !inlet :
 			production_rate = 0
-
 		counter += production_rate
 		if counter > 500 and age > 0:
-			#Game.Gold += 1
 			coinsCollected(10)
 			counter = 0
 		if production_rate > 0 :
@@ -87,7 +90,6 @@ func _process(delta: float) -> void:
 		if go_fix and unit_nearby:
 			go_fix = false
 			startChopping()
-	
 		if age <= 0 or inlet_source.return_level() <= 0:
 			production_rate = 0
 		age_label.text = "RUL : " + str(age)
@@ -100,36 +102,32 @@ func _process(delta: float) -> void:
 		accelerate_button.visible = selected
 		fan.rotation += round(production_rate*10)
 	
-
-
 func _input(event: InputEvent) -> void:
-
 	if event.is_action_pressed("RightClick"):
 		if fixable :
 			go_fix = true
 	if event.is_action_pressed("LeftClick"):
 		if mouseEntered :
 			selected = true
-			if !is_pump:
-				Game.spawnUnit(position)
 		if !mouseEntered:
 			selected = false
 
-
 func _on_mouse_entered() -> void:
+	mouseEntered = true
 	if Game.unit_selected == "technician" and age < initial_age and Game.selected_body.return_carrying() and Game.Gold >= 100 :
 		#print("should be YES mouseEntered ", mouseEntered)
+		cost_label.text = "-100G"
+		cost_label.visible = true
 		Input.set_custom_mouse_cursor(building_cursor_icon)
 		fixing_counter = fixing_time
 		fixable = true
-	mouseEntered = true
-	#print(mouseEntered)
 
+	if Game.unit_selected == "technician" and age < initial_age and Game.selected_body.return_carrying() and Game.Gold < 101 :
+		UI.Gold.modulate.a = 0.5
 
 func _on_mouse_exited() -> void:
 	mouseEntered = false
-	#print(mouseEntered)
-	#print("should be NOT mouseEntered ", mouseEntered)
+	cost_label.visible = false
 	Input.set_custom_mouse_cursor(null)
 	fixable = false
 
@@ -153,29 +151,15 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 		if units  <= 0 :
 			timer.stop()
 
-
 func _on_increase_button_down():
 	selected = true
 	if production_rate < max_production and age > 0:
 		production_rate += production_step
-		#print("the fan speed is : ",fan.rotation)
-		#print("the production rate is : ",production_rate)
-
 
 func _on_decrease_button_down() -> void:
 	selected = true
 	if production_rate > 0 and age > 0 :
 		production_rate -= production_step
-		#print("the fan speed is : ",fan.rotation)
-		#print("the production rate is : ",production_rate)
-
-
-func connect_pump(val,query=false):
-	if query:
-		return connected
-	else:
-		connected = val
-
 
 func _on_timer_timeout() :
 	var chopSpeed = 1*units
@@ -183,11 +167,10 @@ func _on_timer_timeout() :
 	var tween = get_tree().create_tween()
 	tween.tween_property(bar, "value",currTime,0.5).set_trans(Tween.TRANS_LINEAR)
 
-
 func startChopping():
 	bar.visible=true
 	timer.start()
-	
+
 func treeChopped():
 	Game.Wood += 1
 	age = initial_age
@@ -195,31 +178,23 @@ func treeChopped():
 	bar.visible=false
 	body_entered.picked_up_object.queue_free()
 
-
 func _on_stop_button_down() -> void:
 	selected = true
 	if age > 0 :
 		production_rate = 0
-
 
 func _on_accelerate_button_down() -> void:
 	selected = true
 	if age > 0 :
 		production_rate = max_production
 
-
 func _on_outlet_area_area_entered(area: Area2D) -> void:
 	if area.is_in_group("inlet"):
-		
 		outlet = true
-
-
 
 func _on_outlet_area_area_exited(area: Area2D) -> void:
 	if area.is_in_group("inlet"):
 		outlet = false
-
-
 
 func _on_inlet_area_area_entered(area: Area2D) -> void:
 	if area.is_in_group("outlet"):

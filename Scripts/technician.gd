@@ -97,9 +97,6 @@ func _process(delta):
 	if is_working :
 		energy -= 0.1
 	energy_bar.value = energy
-	#if picked_up_object != null:
-		#print("the picked up object is : ",picked_up_object.position)
-		#print("my location is ",position)
 	chill.text = str(get_velocity())
 	drop_button.visible = is_carrying
 	if picked_up_object == null:
@@ -155,7 +152,6 @@ func pick_up_object(object,remove=false):
 		remove_child(object)
 		get_parent().add_child(object)
 		picked_up_object.set_picked(false)
-		#drop_item_button.icon = picked_up_object.spare_image building_cursor_icon
 		drop_item_button.icon = picked_up_object.building_cursor_icon
 		object.global_position = global_position
 		picked_up_object=null

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ctcdjsrgiv5wt"
-path="res://.godot/imported/17480.webp-25c2a0690ffbee8fc2a0dad25eff9b4e.ctex"
+uid="uid://63j4hmqnmsrm"
+path="res://.godot/imported/short pipe-ver.png-5b293f1f16c99cc0a06d7f105fb9b5b1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/17480.webp"
-dest_files=["res://.godot/imported/17480.webp-25c2a0690ffbee8fc2a0dad25eff9b4e.ctex"]
+source_file="res://assets/objects/short pipe-ver.png"
+dest_files=["res://.godot/imported/short pipe-ver.png-5b293f1f16c99cc0a06d7f105fb9b5b1.ctex"]
 
 [params]
 
