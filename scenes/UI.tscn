@@ -140,6 +140,13 @@ offset_right = 1104.0
 offset_bottom = 80.0
 text = "Exit خروج"
 
+[node name="restart" type="Button" parent="."]
+offset_left = 1029.0
+offset_top = 84.0
+offset_right = 1104.0
+offset_bottom = 115.0
+text = "RESTART"
+
 [connection signal="button_down" from="Button" to="." method="_on_button_button_down"]
 [connection signal="button_down" from="increase" to="." method="_on_increase_button_down"]
 [connection signal="button_down" from="decrease" to="." method="_on_decrease_button_down"]
@@ -153,3 +160,4 @@ text = "Exit خروج"
 [connection signal="mouse_entered" from="movedown" to="." method="_on_movedown_mouse_entered"]
 [connection signal="mouse_exited" from="movedown" to="." method="_on_movedown_mouse_exited"]
 [connection signal="button_down" from="Button3" to="." method="_on_button_3_button_down"]
+[connection signal="button_down" from="restart" to="." method="_on_restart_button_down"]

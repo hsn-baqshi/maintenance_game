@@ -1,8 +1,8 @@
-[gd_scene load_steps=18 format=3 uid="uid://cld4583sbxcc4"]
+[gd_scene load_steps=19 format=3 uid="uid://cld4583sbxcc4"]
 
 [ext_resource type="Script" path="res://Scripts/world.gd" id="1_ccfvt"]
 [ext_resource type="PackedScene" uid="uid://cqf2vrbyeo0ux" path="res://scenes/UI.tscn" id="1_ii5xf"]
-[ext_resource type="Script" path="res://Scripts/camera.gd" id="2_3hnqi"]
+[ext_resource type="PackedScene" uid="uid://drh0p3jmsetvu" path="res://scenes/camera.tscn" id="2_urscx"]
 [ext_resource type="Texture2D" uid="uid://dyjnp3r8xdm8p" path="res://assets/spr_tileset_sunnysideworld_16px.png" id="4_2e71a"]
 [ext_resource type="PackedScene" uid="uid://dgqi62g1hqhvc" path="res://scenes/tree.tscn" id="5_2v1of"]
 [ext_resource type="PackedScene" uid="uid://dghqjpjofrkg1" path="res://scenes/shaft.tscn" id="7_0rvy6"]
@@ -11,11 +11,12 @@
 [ext_resource type="PackedScene" uid="uid://bas75hbmg3l78" path="res://scenes/pump.tscn" id="8_3tcgp"]
 [ext_resource type="PackedScene" uid="uid://c418k6jh0lbut" path="res://scenes/technician.tscn" id="9_q4psk"]
 [ext_resource type="PackedScene" uid="uid://drsn7mgoevtyq" path="res://scenes/pipe.tscn" id="10_y8y5d"]
-[ext_resource type="PackedScene" uid="uid://17dtd8w3jwee" path="res://scenes/canon.tscn" id="11_nvjjg"]
 [ext_resource type="PackedScene" uid="uid://d0sfja0olm3ls" path="res://scenes/tank.tscn" id="12_pqqjw"]
 [ext_resource type="PackedScene" uid="uid://mwgahwelu3jw" path="res://scenes/dummy_target.tscn" id="13_unfhg"]
+[ext_resource type="PackedScene" uid="uid://bqkapfvedosv3" path="res://scenes/bullet.tscn" id="15_8tinf"]
+[ext_resource type="PackedScene" uid="uid://wub0mxjlb4y1" path="res://scenes/standing_bow.tscn" id="15_hg1ok"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dhy0r"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_en5in"]
 bg_color = Color(0, 0, 0, 0.611765)
 border_width_left = 2
 border_width_top = 2
@@ -1773,24 +1774,20 @@ y_sort_enabled = true
 script = ExtResource("1_ccfvt")
 item_selected = NodePath("Label")
 
-[node name="Camera" type="Camera2D" parent="." node_paths=PackedStringArray("panelarea")]
-zoom = Vector2(3, 3)
-limit_left = 0
-limit_top = 0
-script = ExtResource("2_3hnqi")
-panelarea = NodePath("../UI/Panel2")
+[node name="Camera" parent="." node_paths=PackedStringArray("panelarea") instance=ExtResource("2_urscx")]
+panelarea = NodePath("../UI/Panel3")
 
 [node name="UI" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("1_ii5xf")]
 camera = NodePath("../Camera")
 
-[node name="Panel2" type="Panel" parent="UI"]
-z_index = 2
+[node name="Panel3" type="Panel" parent="UI"]
+z_index = 5
+y_sort_enabled = true
 offset_left = 239.0
 offset_top = 115.0
 offset_right = 279.0
-offset_bottom = 155.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_dhy0r")
-metadata/_edit_use_anchors_ = true
+offset_bottom = 141.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_en5in")
 
 [node name="unit" type="Node2D" parent="."]
 position = Vector2(126, 105)
@@ -1842,11 +1839,18 @@ rotation = -1.57079
 y_sort_enabled = true
 position = Vector2(336, 38)
 
-[node name="canon" parent="." instance=ExtResource("11_nvjjg")]
-position = Vector2(210, 36)
-
 [node name="tank" parent="." instance=ExtResource("12_pqqjw")]
 position = Vector2(382, 81)
 
 [node name="RigidBody2D" parent="." instance=ExtResource("13_unfhg")]
 position = Vector2(199, 177)
+
+[node name="RigidBody2D2" parent="." instance=ExtResource("15_8tinf")]
+position = Vector2(125, 98)
+turning = true
+
+[node name="StaticBody2D" parent="." instance=ExtResource("15_hg1ok")]
+position = Vector2(339, 174)
+
+[node name="StaticBody2D2" parent="." instance=ExtResource("15_hg1ok")]
+position = Vector2(278, 176)

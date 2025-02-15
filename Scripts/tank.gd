@@ -59,6 +59,7 @@ func _on_suction_area_body_exited(body: Node2D) -> void:
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("units"):
+		body.stop_moving()
 		driver = true
 
 func _on_area_2d_body_exited(body: Node2D) -> void:

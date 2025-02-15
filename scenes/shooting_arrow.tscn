@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://x2yx36rq6mw2"]
+
+[ext_resource type="Texture2D" uid="uid://c16fquun1jeo6" path="res://assets/shooting_arrow.png" id="1_uqt4s"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cwhxn"]
+size = Vector2(4, 19)
+
+[node name="shooting_arrow" type="RigidBody2D"]
+collision_layer = 4
+collision_mask = 4
+mass = 0.001
+gravity_scale = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1.5)
+shape = SubResource("RectangleShape2D_cwhxn")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_uqt4s")

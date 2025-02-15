@@ -1,9 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://bxyx85h5m304r"]
+[gd_scene load_steps=7 format=3 uid="uid://bxyx85h5m304r"]
 
 [ext_resource type="Texture2D" uid="uid://7bnjvljpbrg0" path="res://assets/barracks.png" id="1_2gmxi"]
 [ext_resource type="Script" path="res://Scripts/realbarracks.gd" id="1_blo6s"]
-[ext_resource type="Texture2D" uid="uid://dkrm0xdngw2fo" path="res://assets/building_cursor.png" id="3_7jgi1"]
-[ext_resource type="Texture2D" uid="uid://r8vww0weknh8" path="res://icon.svg" id="4_rlsvr"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_uqrmq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h875d"]
 size = Vector2(74, 80)
@@ -20,31 +20,21 @@ border_blend = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_garye"]
 size = Vector2(52, 81)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_74lvn"]
-bg_color = Color(0.886275, 0.478431, 0, 0.356863)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mdnc8"]
-bg_color = Color(0, 0.629749, 0.979766, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xb0bu"]
-bg_color = Color(1, 0.305882, 0.211765, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mtofj"]
-bg_color = Color(0.346066, 0.701781, 0, 1)
-
 [node name="Barracks" type="StaticBody2D" node_paths=PackedStringArray("select", "select_label")]
 input_pickable = true
 script = ExtResource("1_blo6s")
 select = NodePath("Box")
 select_label = NodePath("Label")
 
-[node name="Panel" type="Panel" parent="."]
-offset_left = -43.0
-offset_top = -29.0
-offset_right = 43.0
-offset_bottom = 49.0
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+modulate = Color(0, 0, 0, 1)
+self_modulate = Color(1, 1, 1, 0.247059)
+position = Vector2(0, 8)
+scale = Vector2(83.25, 75.75)
+texture = SubResource("CanvasTexture_uqrmq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+z_index = 2
 shape = SubResource("RectangleShape2D_h875d")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -67,72 +57,13 @@ offset_bottom = 68.0
 theme_override_font_sizes/font_size = 7
 text = "Age : 100"
 
-[node name="BuildingCursor" type="Sprite2D" parent="."]
-visible = false
-y_sort_enabled = true
-position = Vector2(-47, -11)
-texture = ExtResource("3_7jgi1")
-
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_garye")
 disabled = true
 
-[node name="ProgressBar" type="ProgressBar" parent="."]
-visible = false
-offset_left = 19.0
-offset_top = 29.0
-offset_right = 72.0
-offset_bottom = 43.0
-rotation = 4.71239
-theme_override_font_sizes/font_size = 10
-theme_override_styles/background = SubResource("StyleBoxFlat_74lvn")
-theme_override_styles/fill = SubResource("StyleBoxFlat_mdnc8")
-
-[node name="increase" type="Button" parent="."]
-visible = false
-offset_left = -41.0
-offset_top = -33.0
-offset_right = -24.0
-offset_bottom = -2.0
-text = "^"
-
-[node name="decrease" type="Button" parent="."]
-visible = false
-offset_left = -41.0
-offset_top = 1.0
-offset_right = -24.0
-offset_bottom = 32.0
-text = "v"
-
-[node name="agebar" type="ProgressBar" parent="."]
-visible = false
-offset_left = 22.0
-offset_top = -28.0
-offset_right = 67.0
-offset_bottom = -16.0
-rotation = -3.14159
-theme_override_font_sizes/font_size = 8
-theme_override_styles/background = SubResource("StyleBoxFlat_xb0bu")
-theme_override_styles/fill = SubResource("StyleBoxFlat_mtofj")
-
-[node name="Icon" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(0, 17)
-scale = Vector2(0.152344, 0.152344)
-texture = ExtResource("4_rlsvr")
-
-[node name="Label2" type="Label" parent="."]
-visible = false
-offset_left = -18.0
-offset_top = -53.0
-offset_right = 22.0
-offset_bottom = -30.0
-
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
-[connection signal="button_down" from="increase" to="." method="_on_increase_button_down"]
-[connection signal="button_down" from="decrease" to="." method="_on_decrease_button_down"]

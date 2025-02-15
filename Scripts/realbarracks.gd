@@ -17,20 +17,23 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	select.visible = selected
 	select_label.text = str(selected)
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("LeftClick"):
 		if mouseEntered :
+			select.visible = true
 			selected = true
 			#Game.spawnUnit(position,1)
 			Game.spawnUnit(position,2)
 		if !mouseEntered:
+			select.visible = false
 			selected = false
 
 func _on_mouse_entered() -> void:
+	print("I am over the barracks")
 	mouseEntered = true
 
 func _on_mouse_exited() -> void:
+	print("I am NOT over the barracks")
 	mouseEntered = false

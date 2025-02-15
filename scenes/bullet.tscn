@@ -1,16 +1,30 @@
-[gd_scene load_steps=4 format=3 uid="uid://bqkapfvedosv3"]
+[gd_scene load_steps=5 format=3 uid="uid://bqkapfvedosv3"]
 
-[ext_resource type="Texture2D" uid="uid://bg0qm6so7dmj2" path="res://assets/back_punch.png" id="1_1myfw"]
 [ext_resource type="Script" path="res://Scripts/bullet.gd" id="1_4x73l"]
+[ext_resource type="Texture2D" uid="uid://dt8scdww6fjce" path="res://assets/objects/gear_.png" id="2_qlnoj"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_nu8k2"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_t5rcj"]
 
-[node name="RigidBody2D" type="RigidBody2D" groups=["bullet"]]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sv258"]
+size = Vector2(34, 34)
+
+[node name="RigidBody2D" type="RigidBody2D" groups=["bullet", "gear"]]
+collision_layer = 4
+collision_mask = 4
 gravity_scale = 0.0
 script = ExtResource("1_4x73l")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_1myfw")
+texture = ExtResource("2_qlnoj")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_nu8k2")
+shape = SubResource("CircleShape2D_t5rcj")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(4.17233e-07, 0)
+shape = SubResource("RectangleShape2D_sv258")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

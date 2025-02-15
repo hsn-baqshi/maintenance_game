@@ -51,9 +51,8 @@ func _ready() -> void:
 		bar.visible=false
 		bar.value = 0
 	age = initial_age
-	if is_pump:
-		age_bar.max_value = initial_age
-		production_rate_bar.max_value = max_production
+	age_bar.max_value = initial_age
+	production_rate_bar.max_value = max_production
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -61,35 +60,36 @@ func _process(delta: float) -> void:
 		cost_label.global_position = get_global_mouse_position()
 	select_value.text = str(select)
 	select.visible = selected
-	if is_pump:
-		if bar :
-			bar.value = currTime
-		if currTime <= 0 :
-			body_entered.add_rank(1)
-			treeChopped()
-			currTime = totalTime
 
-		if fixing_counter > 0 :
-			fixing_counter -= delta
-			if unit_nearby and fixing_counter <= 0 :
-				age = initial_age
-				fixable = false
-		if !outlet or !inlet :
-			production_rate = 0
-		counter += production_rate
-		if counter > 500 and age > 0:
-			coinsCollected(10)
-			counter = 0
-		if production_rate > 0 :
-			age -= 0.02*production_rate
-			if inlet_source != null :
-				inlet_source.reduce_level(true)
-		elif production_rate <= 0 :
-			if inlet_source != null :
-				inlet_source.reduce_level(false)
-		if go_fix and unit_nearby:
-			go_fix = false
-			startChopping()
+	if bar :
+		bar.value = currTime
+	if currTime <= 0 :
+		body_entered.add_rank(1)
+		treeChopped()
+		currTime = totalTime
+	if fixing_counter > 0 :
+		fixing_counter -= delta
+		if unit_nearby and fixing_counter <= 0 :
+			age = initial_age
+			fixable = false
+	if !outlet or !inlet :
+		production_rate = 0
+	counter += production_rate
+	if counter > 500 and age > 0:
+		coinsCollected(10)
+		counter = 0
+	if production_rate > 0 :
+		age -= 0.02*production_rate
+		if inlet_source != null :
+			inlet_source.reduce_level(true)
+	elif production_rate <= 0 :
+		if inlet_source != null :
+			inlet_source.reduce_level(false)
+	if go_fix and unit_nearby:
+		
+		go_fix = false
+		startChopping()
+	if inlet_source:
 		if age <= 0 or inlet_source.return_level() <= 0:
 			production_rate = 0
 		age_label.text = "RUL : " + str(age)
@@ -139,6 +139,8 @@ func coinsCollected(val):
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("units"):
+		body.stop_moving()
+		body.anim.play("Walk Down")
 		body_entered = body
 		unit_nearby=true
 		units += 1
@@ -176,7 +178,8 @@ func treeChopped():
 	age = initial_age
 	Game.Gold -= 100
 	bar.visible=false
-	body_entered.picked_up_object.queue_free()
+	if body_entered.picked_up_object :
+		body_entered.picked_up_object.queue_free()
 
 func _on_stop_button_down() -> void:
 	selected = true

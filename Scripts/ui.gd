@@ -86,3 +86,7 @@ func _on_movedown_mouse_exited() -> void:
 
 func _on_button_3_button_down() -> void:
 	get_tree().quit()
+
+
+func _on_restart_button_down() -> void:
+	get_tree().change_scene_to_file("res://scenes/world.tscn")

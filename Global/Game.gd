@@ -6,7 +6,7 @@ var unit_selected : String
 @onready var spawn2 = preload("res://Global/spawn_spare.tscn")
 
 var Wood = 10
-var Gold = 100
+var Gold = 400
 var Coin = 0
 var Production = 0
 var Ammo = 0
@@ -54,7 +54,6 @@ func spawnUnit(pos,choice=1,return_something = false):
 
 func return_body(bodyy):
 	selected_body = bodyy
-	
 
 func building_cursor(val):
 	unit_selected = val

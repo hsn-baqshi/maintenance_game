@@ -1,0 +1,66 @@
+[gd_scene load_steps=8 format=3 uid="uid://wub0mxjlb4y1"]
+
+[ext_resource type="Texture2D" uid="uid://u3rsxi8k5dtg" path="res://assets/shooting_bow_animation.png" id="1_52see"]
+[ext_resource type="Script" path="res://Scripts/standing_bow.gd" id="1_tim4l"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3htki"]
+size = Vector2(23, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0bh6h"]
+atlas = ExtResource("1_52see")
+region = Rect2(0, 0, 27, 22)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5q5ny"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0bh6h")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tvf5y"]
+size = Vector2(32, 26)
+
+[sub_resource type="Curve" id="Curve_a6c2o"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="StaticBody2D" type="StaticBody2D" node_paths=PackedStringArray("splash", "spritee")]
+script = ExtResource("1_tim4l")
+splash = NodePath("CPUParticles2D")
+spritee = NodePath("AnimatedSprite2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, -1)
+shape = SubResource("RectangleShape2D_3htki")
+disabled = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 6)
+sprite_frames = SubResource("SpriteFrames_5q5ny")
+frame_progress = 0.0958234
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_tvf5y")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 20
+one_shot = true
+explosiveness = 1.0
+fixed_fps = 120
+direction = Vector2(1, 1)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 50.0
+radial_accel_min = -80.0
+radial_accel_max = -80.0
+scale_amount_curve = SubResource("Curve_a6c2o")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
