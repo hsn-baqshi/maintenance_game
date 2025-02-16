@@ -5,7 +5,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cwhxn"]
 size = Vector2(4, 19)
 
-[node name="shooting_arrow" type="RigidBody2D"]
+[node name="shooting_arrow" type="RigidBody2D" groups=["bullet"]]
 collision_layer = 4
 collision_mask = 4
 mass = 0.001

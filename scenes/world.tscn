@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://cld4583sbxcc4"]
+[gd_scene load_steps=20 format=3 uid="uid://cld4583sbxcc4"]
 
 [ext_resource type="Script" path="res://Scripts/world.gd" id="1_ccfvt"]
 [ext_resource type="PackedScene" uid="uid://cqf2vrbyeo0ux" path="res://scenes/UI.tscn" id="1_ii5xf"]
@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://mwgahwelu3jw" path="res://scenes/dummy_target.tscn" id="13_unfhg"]
 [ext_resource type="PackedScene" uid="uid://bqkapfvedosv3" path="res://scenes/bullet.tscn" id="15_8tinf"]
 [ext_resource type="PackedScene" uid="uid://wub0mxjlb4y1" path="res://scenes/standing_bow.tscn" id="15_hg1ok"]
+[ext_resource type="PackedScene" uid="uid://bcsnt0nlymy8s" path="res://scenes/mirror.tscn" id="16_owmjp"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_en5in"]
 bg_color = Color(0, 0, 0, 0.611765)
@@ -1854,3 +1855,6 @@ position = Vector2(339, 174)
 
 [node name="StaticBody2D2" parent="." instance=ExtResource("15_hg1ok")]
 position = Vector2(278, 176)
+
+[node name="StaticBody2D3" parent="." instance=ExtResource("16_owmjp")]
+position = Vector2(137, 175)

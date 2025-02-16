@@ -43,6 +43,7 @@ func stop_moving():
 	target = position
 
 func set_selected(value):
+	
 	selected = value
 	box.visible = value 
 	if selected:

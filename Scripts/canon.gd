@@ -11,6 +11,7 @@ var charging : bool = false
 @export var power_label : Label
 var keep_shooting : bool = false
 var counter : float = 0
+@export var auto_button : Button 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -48,8 +49,10 @@ func _input(event: InputEvent) -> void:
 	if mouseEntered and event.is_action_pressed("LeftClick"):
 		print("ok")
 		select = true
+		auto_button.visible = true
 	elif !mouseEntered and event.is_action_pressed("LeftClick"):
 		select = false
+		auto_button.visible = false
 	if select and event.is_action_released("RightClick") and charging :
 		charging = false
 		var head_direction = get_global_mouse_position() - global_position
