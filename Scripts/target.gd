@@ -1,39 +1,51 @@
 extends RigidBody2D
 var mouseEntered : bool = false
-var health : int = 5
+var health : int = 15
 @export var health_bar : ProgressBar
 @export var splash : CPUParticles2D
 @export var labelee : Label
+@export var anim : AnimatedSprite2D
+var x : float = 0
+var y : float = 0
 var attacking_cursor_icon  = load("res://assets/axe.png")
-var targeted : bool = false
 
+var counter : float = 0
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	health_bar.max_value = health
+
+func gen_rand(x,y):
+	var rng = RandomNumberGenerator.new()
+	rng.randomize()
+	var randx = rng.randf_range(x,y)
+	return randx
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	print("the linear velocity is ",linear_velocity)
+	if linear_velocity.length() > 0.1:
+		anim.play("walk")
+	if linear_velocity.x > 0 :
+		anim.flip_h = false
+	elif linear_velocity.x < 0 :
+		anim.flip_h = true
+	if abs(linear_velocity.x) < 0.1 or abs(linear_velocity.y) < 0.1:
+		linear_velocity = Vector2(0,0)
+		anim.stop()
+	counter += delta
+	if counter > 1 :
+		linear_velocity = Vector2(x,y)
+		if counter > 2 :
+			counter = 0
+			x = gen_rand(-20,20)
+			y = gen_rand(-20,20)
 	health_bar.value = health
 	labelee.text = str(mouseEntered)
-	
+
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("RightClick") and Game.unit_selected == "technician" :
-		if mouseEntered:
-			targeted = true
-		if !mouseEntered:
-			targeted= false
-
-	if event.is_action_pressed("RightClick") and get_parent().units != []:
-		var units = get_parent().units
-		for unit in units:
-			if unit.selected :
-				if mouseEntered and targeted :
-					unit.hunt(self)
-				elif !mouseEntered:
-					unit.hunt(null)
-					
+	pass
 
 
 func _on_mouse_entered() -> void:

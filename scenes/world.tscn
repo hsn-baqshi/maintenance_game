@@ -1867,14 +1867,14 @@ position = Vector2(174, 116)
 [node name="animal" parent="." instance=ExtResource("18_rgbob")]
 position = Vector2(371, 217)
 
-[node name="animal2" parent="." instance=ExtResource("18_rgbob")]
-position = Vector2(306, 195)
-
-[node name="animal3" parent="." instance=ExtResource("18_rgbob")]
-position = Vector2(237, 193)
-
 [node name="technician2" parent="." instance=ExtResource("9_q4psk")]
 position = Vector2(299, 137)
 
 [node name="technician3" parent="." instance=ExtResource("9_q4psk")]
 position = Vector2(258, 99)
+
+[node name="animal2" parent="." instance=ExtResource("18_rgbob")]
+position = Vector2(276, 236)
+
+[node name="animal3" parent="." instance=ExtResource("18_rgbob")]
+position = Vector2(176, 226)
