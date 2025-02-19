@@ -30,6 +30,7 @@ bullet=""
 resource=""
 gear=""
 technician=""
+target=""
 
 [input]
 

@@ -11,9 +11,10 @@ var initial_rank : int
 @export var spritee : Sprite2D
 var mouseEntered : bool = false
 var follow_cursor = false
-var speed = 50
+var initial_speed = 70
+var speed = 70
 var is_carrying : bool = false
-@export var slow_speed : int = 20
+@export var slow_speed : int = 50
 var picked_up_object = null
 var original_pos : Vector2 = Vector2(0,0)
 @export var drop_button : Button
@@ -30,6 +31,12 @@ var power : int = 0
 @onready var tech_unit = preload("res://scenes/shooting_arrow.tscn")
 @export var bow : AnimatedSprite2D
 var selected_equipment
+var go_hunt : bool = false
+var hunt_target 
+var attack_timer : float = 0
+@export var target_area : Area2D
+var there_is_a_hunt_target
+var potential_target
 func _ready():
 	energy_bar.max_value=energy
 	initial_rank = rank_sprite.size.y
@@ -39,20 +46,27 @@ func _ready():
 func working(val):
 	is_working = val
 
+func hunt(goal:Node2D):
+	pass
+	#go_hunt = true
+	#hunt_target = goal
+
+	
 func stop_moving():
 	target = position
 
 func set_selected(value):
-	
 	selected = value
 	box.visible = value 
 	if selected:
+		target_area.monitoring = true
 		Game.building_cursor("technician")
 		Game.return_body(self)
 		var path = get_tree().get_root().get_node("World/UI")
 		var tech = building_menu.instantiate()
 		path.add_child(tech)
 	elif !selected:
+		target_area.monitoring = false
 		Game.building_cursor("")
 		Game.return_body(null)
 
@@ -67,6 +81,8 @@ func add_rank(val):
 	rank_sprite.size.y += val*initial_rank
 
 func _input(event):
+	if selected and event.is_action_pressed("RightClick") and there_is_a_hunt_target:
+		hunt_target = potential_target
 	if selected and event.is_action_pressed("one") and equipment != []:
 		print("bow is selected!")
 		bow.visible = true
@@ -76,10 +92,14 @@ func _input(event):
 			set_selected(true)
 		else:
 			set_selected(false)
+	if  event.is_action_pressed("RightClick") and selected and !there_is_a_hunt_target:
+		
+		hunt_target = null
 	if  event.is_action_pressed("RightClick") and selected :
 		follow_cursor=true
 		move_arrow.global_position = get_global_mouse_position()
 		move_arrow.emitting = true
+		#hunt_target = null
 	if  event.is_action_released("RightClick") and selected :
 		follow_cursor = false
 	if selected_equipment == "bow":
@@ -100,18 +120,38 @@ func _input(event):
 			bow.play("charge")
 
 func _physics_process(delta):
+	if selected:
+		target_area.global_position = get_global_mouse_position()
 	if energy <= 0 :
-		speed = 0
+		stop_moving()
 		energy_timer.start()
 	if follow_cursor and selected :
 		target = get_global_mouse_position()
-	if position.distance_to(target) > 10 and energy > 0:
+	if position.distance_to(target) > 10 and energy > 0 :
 		velocity = position.direction_to(target)*speed
 		move_and_slide()
 	else:
 		velocity = Vector2.ZERO
 		anim.stop()
 		energy += 0.05
+	if hunt_target != null :
+		print("hunt target is ", hunt_target)
+		if position.distance_to(hunt_target.global_position) < 100 :
+			stop_moving()
+			attack_timer += delta
+			if attack_timer > 1 :
+				attack_timer = 0
+				var head_direction = hunt_target.global_position - global_position
+				var tech = tech_unit.instantiate()
+				bow.play("shoot")
+				tech.global_position = global_position
+				tech.rotation = head_direction.angle()+PI/2
+				tech.linear_velocity = 500*head_direction.normalized()
+				get_parent().add_child(tech)
+			
+		if charging and power < 500 :
+			power += 10
+
 	if abs(velocity) > Vector2.ZERO and picked_up_object != null :
 		energy -= 0.1
 
@@ -134,7 +174,7 @@ func _process(delta):
 	if is_carrying:
 		speed = slow_speed
 	elif !is_carrying:
-		speed = 50
+		speed = initial_speed
 	if velocity.length() > 0.1:
 		anim.play("Walk Down")
 	else:
@@ -195,8 +235,6 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 	if body.is_in_group("spare"):
 		pass
 
-
-
 func _on_drop_item_button_down() -> void:
 	set_selected(true)
 	pick_up_object(picked_up_object,true)
@@ -204,4 +242,15 @@ func _on_drop_item_button_down() -> void:
 
 
 func _on_energy_timer_timeout() -> void:
-	speed = 50
+	speed = initial_speed
+
+
+func _on_target_area_body_entered(body: Node2D) -> void:
+	if body.is_in_group("target"):
+		potential_target = body
+		there_is_a_hunt_target = true
+
+
+func _on_target_area_body_exited(body: Node2D) -> void:
+	if body.is_in_group("target"):
+		there_is_a_hunt_target = false

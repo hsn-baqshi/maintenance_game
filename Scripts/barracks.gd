@@ -174,11 +174,11 @@ func startChopping():
 	timer.start()
 
 func treeChopped():
-	Game.Wood += 1
-	age = initial_age
-	Game.Gold -= 100
-	bar.visible=false
-	if body_entered.picked_up_object :
+	if body_entered.picked_up_object != null:
+		Game.Wood += 1
+		age = initial_age
+		Game.Gold -= 100
+		bar.visible=false
 		body_entered.picked_up_object.queue_free()
 
 func _on_stop_button_down() -> void:

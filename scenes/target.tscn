@@ -1,0 +1,68 @@
+[gd_scene load_steps=5 format=3 uid="uid://c443mv1x1ki7r"]
+
+[ext_resource type="Script" path="res://Scripts/target.gd" id="1_7ryt0"]
+[ext_resource type="Texture2D" uid="uid://c203jfueu640r" path="res://assets/objects/lionstatue.png" id="1_y45c0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qbi7v"]
+size = Vector2(33, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hqg6j"]
+size = Vector2(46, 52)
+
+[node name="animal" type="RigidBody2D" node_paths=PackedStringArray("health_bar", "splash", "labelee") groups=["target"]]
+collision_layer = 5
+collision_mask = 5
+input_pickable = true
+mass = 0.001
+gravity_scale = 0.0
+script = ExtResource("1_7ryt0")
+health_bar = NodePath("ProgressBar")
+splash = NodePath("CPUParticles2D")
+labelee = NodePath("Label")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 0)
+shape = SubResource("RectangleShape2D_qbi7v")
+
+[node name="Lionstatue" type="Sprite2D" parent="."]
+texture = ExtResource("1_y45c0")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 5
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_hqg6j")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = -24.0
+offset_top = -42.0
+offset_right = 24.0
+offset_bottom = -29.0
+theme_override_font_sizes/font_size = 6
+max_value = 5.0
+step = 1.0
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+emitting = false
+one_shot = true
+speed_scale = 2.0
+explosiveness = 0.85
+direction = Vector2(1, 1)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 50.0
+
+[node name="Label" type="Label" parent="."]
+offset_left = -43.0
+offset_top = 26.0
+offset_right = 50.0
+offset_bottom = 49.0
+theme_override_font_sizes/font_size = 8
+text = "MouseEnter : False/true"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

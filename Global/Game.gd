@@ -5,7 +5,7 @@ var spawnedwindow
 var unit_selected : String
 @onready var spawn = preload("res://Global/spawn_unit.tscn")
 @onready var spawn2 = preload("res://Global/spawn_spare.tscn")
-
+var hovered_target: Node2D = null
 var Wood = 10
 var Gold = 400
 var Coin = 0

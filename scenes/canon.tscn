@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://17dtd8w3jwee"]
+[gd_scene load_steps=17 format=3 uid="uid://17dtd8w3jwee"]
 
 [ext_resource type="Script" path="res://Scripts/canon.gd" id="1_abvem"]
 [ext_resource type="Texture2D" uid="uid://7bnjvljpbrg0" path="res://assets/barracks.png" id="2_1ngma"]
@@ -85,6 +85,9 @@ animations = [{
 "speed": 30.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fyvrm"]
+size = Vector2(38, 40)
+
 [node name="canon" type="StaticBody2D" node_paths=PackedStringArray("head", "selected_borders", "power_label", "auto_button")]
 collision_layer = 2
 collision_mask = 2
@@ -135,7 +138,14 @@ offset_bottom = -9.0
 theme_override_font_sizes/font_size = 8
 text = "auto"
 
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_fyvrm")
+
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
 [connection signal="button_down" from="Button" to="." method="_on_button_button_down"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

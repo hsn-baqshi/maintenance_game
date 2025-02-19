@@ -12,6 +12,7 @@ var charging : bool = false
 var keep_shooting : bool = false
 var counter : float = 0
 @export var auto_button : Button 
+var buildable : bool = true
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -52,7 +53,7 @@ func _input(event: InputEvent) -> void:
 		auto_button.visible = true
 	elif !mouseEntered and event.is_action_pressed("LeftClick"):
 		select = false
-		auto_button.visible = false
+		#auto_button.visible = false
 	if select and event.is_action_released("RightClick") and charging :
 		charging = false
 		var head_direction = get_global_mouse_position() - global_position
@@ -64,7 +65,7 @@ func _input(event: InputEvent) -> void:
 		tech.linear_velocity = power*head_direction.normalized()
 		get_parent().add_child(tech)
 		power = 0
-		
+
 	if select and event.is_action_pressed("RightClick") and Game.Ammo > 0:
 		Game.Ammo -= 1
 		charging = true
@@ -81,5 +82,12 @@ func _on_mouse_exited() -> void:
 
 
 func _on_button_button_down() -> void:
-	if Game.Ammo > 0 : 
-		keep_shooting = true
+		keep_shooting = !keep_shooting
+
+
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	buildable= false 
+
+
+func _on_area_2d_body_exited(body: Node2D) -> void:
+	buildable=true

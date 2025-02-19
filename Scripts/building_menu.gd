@@ -7,6 +7,7 @@ var unitPath
 var mouseEntered: bool = false
 var grid_size: int = 16  # Define the size of each grid cell
 var builder 
+
 func _ready() -> void:
 	if Game.selected_body != null:
 		builder = Game.selected_body
@@ -14,6 +15,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if val and under_placement:
+		
 		# Get mouse position in world space
 		var mouse_pos = get_global_mouse_position() / unitPath.get_node("Camera").zoom.y
 		
@@ -27,6 +29,13 @@ func _process(delta: float) -> void:
 			snappedf(builder.global_position.x + offset.x, grid_size),
 			snappedf(builder.global_position.y + offset.y, grid_size)
 		)
+		val.modulate.a = 0.5
+		if !val.buildable :
+			val.modulate.b = 0
+			val.modulate.g = 0
+		if val.buildable :
+			val.modulate.b = 1
+			val.modulate.g = 1
 func _on_button_button_down() -> void:
 
 	mouseEntered = true
@@ -36,7 +45,8 @@ func _on_button_button_down() -> void:
 		unitPath.add_child(val)
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("LeftClick") and under_placement:
+	if event.is_action_pressed("LeftClick") and under_placement and val.buildable :
+		val.modulate.a = 1
 		Game.Gold -= 100
 		under_placement = false
 		val = null  

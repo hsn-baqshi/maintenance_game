@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://c418k6jh0lbut"]
+[gd_scene load_steps=28 format=3 uid="uid://c418k6jh0lbut"]
 
 [ext_resource type="Script" path="res://Scripts/technician.gd" id="1_c7asy"]
 [ext_resource type="Texture2D" uid="uid://u3rsxi8k5dtg" path="res://assets/shooting_bow_animation.png" id="2_4d0ye"]
@@ -137,7 +137,7 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.533333, 0.633333, 0.8),
+"times": PackedFloat32Array(0, 0.133333, 0.266667, 0.4, 0.533333, 0.666667, 0.8, 0.9),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3, 4, 5, 6, 7]
@@ -229,7 +229,10 @@ gravity = Vector3(0, 0, 0)
 anim_speed_min = 4.0
 anim_speed_max = 4.0
 
-[node name="technician" type="CharacterBody2D" node_paths=PackedStringArray("chill", "rank_sprite", "box", "anim", "spritee", "drop_button", "energy_bar", "energy_timer", "move_arrow", "drop_item_button", "bow") groups=["technician"]]
+[sub_resource type="CircleShape2D" id="CircleShape2D_8i8fr"]
+radius = 4.0
+
+[node name="technician" type="CharacterBody2D" node_paths=PackedStringArray("chill", "rank_sprite", "box", "anim", "spritee", "drop_button", "energy_bar", "energy_timer", "move_arrow", "drop_item_button", "bow", "target_area") groups=["technician"]]
 z_index = 1
 y_sort_enabled = true
 collision_layer = 3
@@ -249,6 +252,7 @@ energy_timer = NodePath("energy_timer")
 move_arrow = NodePath("move_cursor")
 drop_item_button = NodePath("drop_item")
 bow = NodePath("bow")
+target_area = NodePath("target_area")
 
 [node name="bow" type="AnimatedSprite2D" parent="."]
 visible = false
@@ -341,6 +345,14 @@ one_shot = true
 explosiveness = 1.0
 fixed_fps = 60
 
+[node name="target_area" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 4
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="target_area"]
+shape = SubResource("CircleShape2D_8i8fr")
+
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
@@ -348,3 +360,5 @@ fixed_fps = 60
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
 [connection signal="button_down" from="drop_item" to="." method="_on_drop_item_button_down"]
 [connection signal="timeout" from="energy_timer" to="." method="_on_energy_timer_timeout"]
+[connection signal="body_entered" from="target_area" to="." method="_on_target_area_body_entered"]
+[connection signal="body_exited" from="target_area" to="." method="_on_target_area_body_exited"]
