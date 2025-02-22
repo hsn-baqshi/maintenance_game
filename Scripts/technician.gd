@@ -7,8 +7,7 @@ var initial_rank : int
 @export var selected = false
 @export var box : Panel
 @onready var target = position
-@export var anim : AnimationPlayer
-@export var spritee : Sprite2D
+@export var anim : AnimatedSprite2D
 var mouseEntered : bool = false
 var follow_cursor = false
 var initial_speed = 70
@@ -80,9 +79,23 @@ func add_rank(val):
 	rank += val
 	rank_sprite.size.y += val*initial_rank
 
+func shoot(powerr,is_hunt_target=false):
+	var head_direction = Vector2(0,0)
+	if is_hunt_target :
+		head_direction = hunt_target.global_position - global_position
+	else:
+		head_direction = get_global_mouse_position() - global_position
+	var tech = tech_unit.instantiate()
+	bow.play("shoot")
+	tech.global_position = global_position
+	tech.rotation = head_direction.angle()+PI/2
+	tech.linear_velocity = powerr*head_direction.normalized()
+	get_parent().add_child(tech)
+
 func _input(event):
 	if selected and event.is_action_pressed("RightClick") and there_is_a_hunt_target:
 		hunt_target = potential_target
+		
 	if selected and event.is_action_pressed("one") and equipment != []:
 		print("bow is selected!")
 		bow.visible = true
@@ -106,20 +119,17 @@ func _input(event):
 		
 		if selected and event.is_action_released("ui_accept") and charging :
 			charging = false
-			var head_direction = get_global_mouse_position() - global_position
-			var tech = tech_unit.instantiate()
-			bow.play("shoot")
-			tech.global_position = global_position
-			tech.rotation = head_direction.angle()+PI/2
-			tech.linear_velocity = power*head_direction.normalized()
-			get_parent().add_child(tech)
+			shoot(power,true)
 			power = 0
 		if selected and event.is_action_pressed("ui_accept") and Game.Ammo > 0:
 			Game.Ammo -= 1
 			charging = true
 			bow.play("charge")
 
+
 func _physics_process(delta):
+	if velocity.length()>0:
+		move_and_slide()
 	if selected:
 		target_area.global_position = get_global_mouse_position()
 	if energy <= 0 :
@@ -129,7 +139,7 @@ func _physics_process(delta):
 		target = get_global_mouse_position()
 	if position.distance_to(target) > 10 and energy > 0 :
 		velocity = position.direction_to(target)*speed
-		move_and_slide()
+		#move_and_slide()
 	else:
 		velocity = Vector2.ZERO
 		anim.stop()
@@ -137,20 +147,17 @@ func _physics_process(delta):
 	if hunt_target != null :
 		print("hunt target is ", hunt_target)
 		if position.distance_to(hunt_target.global_position) < 100 :
-			stop_moving()
 			attack_timer += delta
 			if attack_timer > 1 :
+				stop_moving()
 				attack_timer = 0
-				var head_direction = hunt_target.global_position - global_position
-				var tech = tech_unit.instantiate()
-				bow.play("shoot")
-				tech.global_position = global_position
-				tech.rotation = head_direction.angle()+PI/2
-				tech.linear_velocity = 500*head_direction.normalized()
-				get_parent().add_child(tech)
-			
+				shoot(500,true)
+		elif position.distance_to(hunt_target.global_position) >= 80:
+			velocity = global_position.direction_to(hunt_target.global_position).normalized()*speed
+			#move_and_slide()
 		if charging and power < 500 :
 			power += 10
+
 
 	if abs(velocity) > Vector2.ZERO and picked_up_object != null :
 		energy -= 0.1
@@ -178,11 +185,11 @@ func _process(delta):
 	if velocity.length() > 0.1:
 		anim.play("Walk Down")
 	else:
-		anim.play("idle")
+		anim.play("Idle")
 	if velocity.x > 0 :
-		spritee.flip_h = false
+		anim.flip_h = false
 	elif velocity.x < 0 :
-		spritee.flip_h = true
+		anim.flip_h = true
 	if abs(velocity.x) < 0.1 or abs(velocity.y) < 0.1:
 		velocity = Vector2(0,0)
 		anim.stop()

@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://ole53rv2p5q3"]
+
+[ext_resource type="Texture2D" uid="uid://brja028f2ytay" path="res://assets/objects/organic/meatt.png" id="1_j3fyh"]
+[ext_resource type="Script" path="res://Scripts/meat.gd" id="1_kjtrq"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_l1e64"]
+radius = 12.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5fuw3"]
+radius = 17.0294
+
+[node name="meat" type="StaticBody2D"]
+script = ExtResource("1_kjtrq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_l1e64")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -5)
+texture = ExtResource("1_j3fyh")
+
+[node name="food" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="food"]
+shape = SubResource("CircleShape2D_5fuw3")
+
+[connection signal="body_entered" from="food" to="." method="_on_food_body_entered"]

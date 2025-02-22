@@ -1,78 +1,23 @@
-[gd_scene load_steps=16 format=3 uid="uid://c443mv1x1ki7r"]
+[gd_scene load_steps=9 format=3 uid="uid://c443mv1x1ki7r"]
 
 [ext_resource type="Script" path="res://Scripts/target.gd" id="1_7ryt0"]
-[ext_resource type="Texture2D" uid="uid://cy08maxqpa2qc" path="res://assets/goatt.png" id="2_rta2w"]
+[ext_resource type="Texture2D" uid="uid://dmvctyxus0fx6" path="res://assets/objects/elephant_clock/outside_frame.png" id="2_ow10i"]
+[ext_resource type="Texture2D" uid="uid://q0stdms60je3" path="res://assets/objects/elephant_clock/internal_clock.png" id="3_hxxbf"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_hepuo"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qbi7v"]
 size = Vector2(33, 40)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_7t18t"]
-atlas = ExtResource("2_rta2w")
-region = Rect2(0, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_0efxl"]
-atlas = ExtResource("2_rta2w")
-region = Rect2(64, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_tny3c"]
-atlas = ExtResource("2_rta2w")
-region = Rect2(128, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_pepi6"]
-atlas = ExtResource("2_rta2w")
-region = Rect2(192, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_8i0xm"]
-atlas = ExtResource("2_rta2w")
-region = Rect2(256, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_tnlws"]
-atlas = ExtResource("2_rta2w")
-region = Rect2(320, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4mbg6"]
-atlas = ExtResource("2_rta2w")
-region = Rect2(384, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_qkpp8"]
-atlas = ExtResource("2_rta2w")
-region = Rect2(448, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xlqlr"]
-atlas = ExtResource("2_rta2w")
-region = Rect2(512, 0, 64, 64)
+[sub_resource type="AtlasTexture" id="AtlasTexture_emcn7"]
+atlas = ExtResource("2_ow10i")
+region = Rect2(0, 0, 69, 68)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_fn50q"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_7t18t")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_0efxl")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_tny3c")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_pepi6")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_8i0xm")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_tnlws")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_4mbg6")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qkpp8")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_xlqlr")
+"texture": SubResource("AtlasTexture_emcn7")
 }],
 "loop": true,
 "name": &"walk",
@@ -82,7 +27,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hqg6j"]
 size = Vector2(46, 52)
 
-[node name="animal" type="RigidBody2D" node_paths=PackedStringArray("health_bar", "splash", "labelee", "anim") groups=["target"]]
+[node name="animal" type="RigidBody2D" node_paths=PackedStringArray("health_bar", "splash", "labelee", "anim", "small_circle") groups=["target"]]
 collision_layer = 5
 collision_mask = 5
 input_pickable = true
@@ -94,6 +39,7 @@ health_bar = NodePath("ProgressBar")
 splash = NodePath("CPUParticles2D")
 labelee = NodePath("Label")
 anim = NodePath("Lionstatue")
+small_circle = NodePath("Sprite2D2")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(0, 0, 0, 1)
@@ -109,7 +55,6 @@ shape = SubResource("RectangleShape2D_qbi7v")
 [node name="Lionstatue" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_fn50q")
 animation = &"walk"
-frame = 2
 frame_progress = 0.927949
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -146,6 +91,10 @@ offset_right = 50.0
 offset_bottom = 49.0
 theme_override_font_sizes/font_size = 8
 text = "MouseEnter : False/true"
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(0, 17)
+texture = ExtResource("3_hxxbf")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

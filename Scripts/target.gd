@@ -5,9 +5,11 @@ var health : int = 15
 @export var splash : CPUParticles2D
 @export var labelee : Label
 @export var anim : AnimatedSprite2D
+@export var small_circle : Sprite2D
 var x : float = 0
 var y : float = 0
 var attacking_cursor_icon  = load("res://assets/axe.png")
+@onready var meat = preload("res://scenes/meat.tscn")
 
 var counter : float = 0
 # Called when the node enters the scene tree for the first time.
@@ -23,8 +25,9 @@ func gen_rand(x,y):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	print("the linear velocity is ",linear_velocity)
+	#print("the linear velocity is ",linear_velocity)
 	if linear_velocity.length() > 0.1:
+		small_circle.rotation += delta
 		anim.play("walk")
 	if linear_velocity.x > 0 :
 		anim.flip_h = false
@@ -35,7 +38,7 @@ func _process(delta: float) -> void:
 		anim.stop()
 	counter += delta
 	if counter > 1 :
-		linear_velocity = Vector2(x,y)
+		linear_velocity = 5*Vector2(x,y)
 		if counter > 2 :
 			counter = 0
 			x = gen_rand(-20,20)
@@ -46,7 +49,12 @@ func _process(delta: float) -> void:
 
 func _input(event: InputEvent) -> void:
 	pass
-
+	
+func spawn_meat():
+	var meato = meat.instantiate()
+	#tech.position = global_position
+	meato.global_position = global_position
+	get_parent().add_child(meato)
 
 func _on_mouse_entered() -> void:
 	print("target is found!")
@@ -66,7 +74,9 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		body.queue_free()
 		if health == 1 :
 			Game.Gold += 100
+			spawn_meat()
 			queue_free()
+			
 		else : 
 			health -= 1
 

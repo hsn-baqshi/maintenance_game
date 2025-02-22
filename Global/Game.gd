@@ -15,6 +15,7 @@ var Profit_margin = 100 # $/L
 var counter = 0
 var previous_margin 
 var selected_body
+var Food = 100
 
 func gen_rand(x,y):
 	var rng = RandomNumberGenerator.new()

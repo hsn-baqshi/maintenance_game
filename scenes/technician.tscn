@@ -1,11 +1,14 @@
-[gd_scene load_steps=28 format=3 uid="uid://c418k6jh0lbut"]
+[gd_scene load_steps=45 format=3 uid="uid://c418k6jh0lbut"]
 
 [ext_resource type="Script" path="res://Scripts/technician.gd" id="1_c7asy"]
 [ext_resource type="Texture2D" uid="uid://u3rsxi8k5dtg" path="res://assets/shooting_bow_animation.png" id="2_4d0ye"]
 [ext_resource type="Texture2D" uid="uid://dftpcldooaq6e" path="res://assets/run_centered.png" id="2_dc5fi"]
 [ext_resource type="Texture2D" uid="uid://bjhi2rmncqjh8" path="res://assets/idle_centered.png" id="2_vaefd"]
+[ext_resource type="Texture2D" uid="uid://b03o2i5viuhah" path="res://assets/Pixel Crawler - Free Pack/Weapons/Hands/Hands.png" id="3_0bb7t"]
 [ext_resource type="Texture2D" uid="uid://guwvao47lvf" path="res://assets/rank.png" id="3_3w80t"]
+[ext_resource type="Texture2D" uid="uid://bby5e00yhr4lo" path="res://assets/Pixel Crawler - Free Pack/Heroes/Knight/Idle/Idle-Sheet.png" id="4_cggul"]
 [ext_resource type="Texture2D" uid="uid://vueyipe00530" path="res://assets/move_arrow.png" id="5_axkva"]
+[ext_resource type="Texture2D" uid="uid://ba8pa2rd5at2a" path="res://assets/Pixel Crawler - Free Pack/Heroes/Knight/Run/Run-Sheet.png" id="5_ewnu2"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_q37qx"]
 atlas = ExtResource("2_4d0ye")
@@ -69,10 +72,115 @@ animations = [{
 "speed": 30.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_otf5i"]
+atlas = ExtResource("3_0bb7t")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o404u"]
+atlas = ExtResource("3_0bb7t")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0fgf7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_otf5i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o404u")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [sub_resource type="CanvasTexture" id="CanvasTexture_uoyoo"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ru6ot"]
 size = Vector2(9, 7)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mx4ja"]
+atlas = ExtResource("4_cggul")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mr2hr"]
+atlas = ExtResource("4_cggul")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p4ois"]
+atlas = ExtResource("4_cggul")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g4tfu"]
+atlas = ExtResource("4_cggul")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_royj0"]
+atlas = ExtResource("5_ewnu2")
+region = Rect2(0, 32, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_26x8q"]
+atlas = ExtResource("5_ewnu2")
+region = Rect2(64, 32, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i2opr"]
+atlas = ExtResource("5_ewnu2")
+region = Rect2(128, 32, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hmq7s"]
+atlas = ExtResource("5_ewnu2")
+region = Rect2(192, 32, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y0vyp"]
+atlas = ExtResource("5_ewnu2")
+region = Rect2(256, 32, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4qlbm"]
+atlas = ExtResource("5_ewnu2")
+region = Rect2(320, 32, 64, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xbjbh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mx4ja")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mr2hr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p4ois")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g4tfu")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_royj0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_26x8q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i2opr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hmq7s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y0vyp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4qlbm")
+}],
+"loop": true,
+"name": &"Walk Down",
+"speed": 12.0
+}]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gt2ey"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -232,7 +340,7 @@ anim_speed_max = 4.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_8i8fr"]
 radius = 4.0
 
-[node name="technician" type="CharacterBody2D" node_paths=PackedStringArray("chill", "rank_sprite", "box", "anim", "spritee", "drop_button", "energy_bar", "energy_timer", "move_arrow", "drop_item_button", "bow", "target_area") groups=["technician"]]
+[node name="technician" type="CharacterBody2D" node_paths=PackedStringArray("chill", "rank_sprite", "box", "anim", "drop_button", "energy_bar", "energy_timer", "move_arrow", "drop_item_button", "bow", "target_area") groups=["technician"]]
 z_index = 1
 y_sort_enabled = true
 collision_layer = 3
@@ -244,8 +352,7 @@ script = ExtResource("1_c7asy")
 chill = NodePath("Label")
 rank_sprite = NodePath("TextureRect")
 box = NodePath("Box")
-anim = NodePath("AnimationPlayer")
-spritee = NodePath("Sprite2D")
+anim = NodePath("Sprite2D")
 drop_button = NodePath("drop_item")
 energy_bar = NodePath("Box/Panel")
 energy_timer = NodePath("energy_timer")
@@ -255,30 +362,43 @@ bow = NodePath("bow")
 target_area = NodePath("target_area")
 
 [node name="bow" type="AnimatedSprite2D" parent="."]
-visible = false
 z_index = 1
-position = Vector2(1, 2)
+position = Vector2(1, -2)
+rotation = 1.83259
 sprite_frames = SubResource("SpriteFrames_j8qqu")
 animation = &"charge"
+offset = Vector2(-1.10421, -9.46566)
 flip_h = true
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="bow"]
+position = Vector2(-2.84659, -12.1046)
+rotation = -3.14159
+sprite_frames = SubResource("SpriteFrames_0fgf7")
+frame = 1
+frame_progress = 0.500524
+
+[node name="Sprite2D2" type="AnimatedSprite2D" parent="bow"]
+position = Vector2(1.9137, -17.5212)
+rotation = -3.14159
+sprite_frames = SubResource("SpriteFrames_0fgf7")
 
 [node name="Sprite2D2" type="Sprite2D" parent="."]
 modulate = Color(0, 0, 0, 1)
 self_modulate = Color(1, 1, 1, 0.247059)
 y_sort_enabled = true
-position = Vector2(-0.5, 8.78125)
-scale = Vector2(19, 4.4375)
+position = Vector2(1, 8.78125)
+scale = Vector2(22, 4.4375)
 texture = SubResource("CanvasTexture_uoyoo")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.5, 2.5)
 shape = SubResource("RectangleShape2D_ru6ot")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
 z_index = 1
-position = Vector2(0, -23)
-texture = ExtResource("2_vaefd")
-hframes = 13
+position = Vector2(2, -7)
+sprite_frames = SubResource("SpriteFrames_xbjbh")
+animation = &"Idle"
 
 [node name="Box" type="Panel" parent="."]
 offset_left = -11.0
