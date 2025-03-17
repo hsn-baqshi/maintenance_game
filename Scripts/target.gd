@@ -33,9 +33,10 @@ func _process(delta: float) -> void:
 		anim.flip_h = false
 	elif linear_velocity.x < 0 :
 		anim.flip_h = true
-	if abs(linear_velocity.x) < 0.1 or abs(linear_velocity.y) < 0.1:
+	if linear_velocity.length() < 0.1:
 		linear_velocity = Vector2(0,0)
 		anim.stop()
+
 	counter += delta
 	if counter > 1 :
 		linear_velocity = 5*Vector2(x,y)
@@ -89,3 +90,4 @@ func _on_body_entered(body: Node) -> void:
 			queue_free()
 		else : 
 			health -= 1
+			

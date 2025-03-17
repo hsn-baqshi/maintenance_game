@@ -6,50 +6,58 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_grbtj"]
 radius = 25.02
 
-[node name="resource" type="RigidBody2D" node_paths=PackedStringArray("coll") groups=["resource"]]
+[node name="resource" type="RigidBody2D" node_paths=PackedStringArray("coll", "splash") groups=["resource"]]
+input_pickable = true
 gravity_scale = 0.0
 script = ExtResource("1_2vd2p")
 coll = NodePath("CollisionShape2D")
+splash = NodePath("CPUParticles2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_grbtj")
 
 [node name="Sprite2D" type="Sprite2D" parent="CollisionShape2D"]
 position = Vector2(3, -11)
-scale = Vector2(2.30769, 2.30769)
 texture = ExtResource("2_hrl38")
 
 [node name="Sprite2D2" type="Sprite2D" parent="CollisionShape2D"]
-position = Vector2(-12.3077, -9.99999)
-scale = Vector2(2.30769, 2.30769)
+position = Vector2(-8, -9)
 texture = ExtResource("2_hrl38")
 
 [node name="Sprite2D3" type="Sprite2D" parent="CollisionShape2D"]
-position = Vector2(12, -2)
-scale = Vector2(2.30769, 2.30769)
+position = Vector2(10, -6)
 texture = ExtResource("2_hrl38")
 
 [node name="Sprite2D4" type="Sprite2D" parent="CollisionShape2D"]
-position = Vector2(-16, 3)
-scale = Vector2(1.46154, 1.46154)
+position = Vector2(-12, 2)
 texture = ExtResource("2_hrl38")
 
 [node name="Sprite2D5" type="Sprite2D" parent="CollisionShape2D"]
-position = Vector2(4, 6)
-scale = Vector2(1.76923, 1.76923)
+position = Vector2(10, 1)
 texture = ExtResource("2_hrl38")
 
 [node name="Sprite2D6" type="Sprite2D" parent="CollisionShape2D"]
-position = Vector2(-6, 11)
-scale = Vector2(2.23077, 2.23077)
+position = Vector2(-5, 8)
 texture = ExtResource("2_hrl38")
 
 [node name="Sprite2D7" type="Sprite2D" parent="CollisionShape2D"]
-position = Vector2(6, 11)
-scale = Vector2(2.15385, 2.15385)
+position = Vector2(5, 8)
 texture = ExtResource("2_hrl38")
 
 [node name="Sprite2D8" type="Sprite2D" parent="CollisionShape2D"]
 position = Vector2(-1, -2)
-scale = Vector2(2.15385, 2.15385)
 texture = ExtResource("2_hrl38")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+emitting = false
+one_shot = true
+speed_scale = 2.0
+explosiveness = 0.85
+direction = Vector2(1, 1)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 50.0
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

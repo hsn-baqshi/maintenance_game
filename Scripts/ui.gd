@@ -1,6 +1,6 @@
 extends CanvasLayer
 
-@export var label : Label
+@export var Wood : Label
 @export var Gold : Label
 @export var Production : Label
 @export var Price : Button
@@ -34,6 +34,7 @@ func _process(delta: float) -> void:
 	Gold.text = "Gold : " + str(snapped(Game.Gold,0.01)) 
 	Production.text = "Production : " + str(snapped(Game.Production,0.01)) + " L"
 	Price.text = "Sell : " + str(snapped(amount,0.01)) + "L @"+ str(snapped(Game.Profit_margin,0.01)) + " $/L , GAIN +" + str(snapped(amount*Game.Profit_margin,0.01))
+	Wood.text = "Wood : " + str(snapped(Game.Wood,0.0))
 func _on_button_button_down() -> void:
 	if Game.Production >= amount :
 		Game.Production -= amount

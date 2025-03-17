@@ -47,6 +47,7 @@ func _on_button_button_down() -> void:
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("LeftClick") and under_placement and val.buildable :
 		val.modulate.a = 1
+		val.activate_this()
 		Game.Gold -= 100
 		under_placement = false
 		val = null  

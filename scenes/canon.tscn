@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://17dtd8w3jwee"]
+[gd_scene load_steps=14 format=3 uid="uid://17dtd8w3jwee"]
 
 [ext_resource type="Script" path="res://Scripts/canon.gd" id="1_abvem"]
 [ext_resource type="Texture2D" uid="uid://b470mvhw5jbcq" path="res://assets/Pixel Crawler - Free Pack/Weapons/box.png" id="2_0mffr"]
@@ -61,6 +61,9 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fyvrm"]
 size = Vector2(38, 40)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_xxb2s"]
+radius = 120.104
+
 [node name="canon" type="StaticBody2D" node_paths=PackedStringArray("head", "selected_borders", "power_label", "auto_button")]
 collision_layer = 2
 collision_mask = 2
@@ -119,9 +122,17 @@ text = "auto"
 position = Vector2(0, 15)
 shape = SubResource("RectangleShape2D_fyvrm")
 
+[node name="attack_area" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="attack_area"]
+position = Vector2(0, 15)
+shape = SubResource("CircleShape2D_xxb2s")
+
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
 [connection signal="button_down" from="Button" to="." method="_on_button_button_down"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="body_entered" from="attack_area" to="." method="_on_attack_area_body_entered"]
+[connection signal="body_exited" from="attack_area" to="." method="_on_attack_area_body_exited"]

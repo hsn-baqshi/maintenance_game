@@ -14,20 +14,19 @@ size = Vector2(1170, 54)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_narfq"]
 size = Vector2(1163, 49)
 
-[node name="UI" type="CanvasLayer" node_paths=PackedStringArray("label", "Gold", "Production", "Price", "Ammo")]
+[node name="UI" type="CanvasLayer" node_paths=PackedStringArray("Wood", "Gold", "Production", "Price", "Ammo")]
 script = ExtResource("1_tbv44")
-label = NodePath("Wood")
+Wood = NodePath("Wood")
 Gold = NodePath("Gold")
 Production = NodePath("Production")
 Price = NodePath("Button")
 Ammo = NodePath("Label")
 
 [node name="Wood" type="Label" parent="."]
-visible = false
-offset_left = 41.0
-offset_top = 16.0
-offset_right = 81.0
-offset_bottom = 39.0
+offset_left = 448.0
+offset_top = 15.0
+offset_right = 488.0
+offset_bottom = 38.0
 text = "0000"
 
 [node name="Gold" type="Label" parent="."]

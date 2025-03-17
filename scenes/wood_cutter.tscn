@@ -1,0 +1,65 @@
+[gd_scene load_steps=10 format=3 uid="uid://bjak3fxf8xfct"]
+
+[ext_resource type="Texture2D" uid="uid://hgu46mqom8l7" path="res://assets/objects/pipe_puzzle_block.png" id="1_ir3kx"]
+[ext_resource type="Script" path="res://Scripts/wood_cutter.gd" id="2_nkdlx"]
+[ext_resource type="Texture2D" uid="uid://btpowxfhv803b" path="res://assets/objects/leftdownelbow.png" id="3_pym2g"]
+[ext_resource type="Texture2D" uid="uid://dt8scdww6fjce" path="res://assets/objects/gear_.png" id="3_wvyd7"]
+[ext_resource type="Texture2D" uid="uid://bedoaj63md0sa" path="res://assets/axe.png" id="4_4iy3f"]
+[ext_resource type="Texture2D" uid="uid://b1e2ntn1bigk8" path="res://assets/objects/shaft1.png" id="4_yn253"]
+[ext_resource type="Texture2D" uid="uid://coc1fuvlcw548" path="res://assets/objects/wooden_cylinder.png" id="5_1xjvj"]
+[ext_resource type="Texture2D" uid="uid://bsjedkukk7ng3" path="res://assets/objects/gear_2.png" id="6_a1qjq"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0jw6k"]
+radius = 94.0053
+
+[node name="wood cutter" type="Sprite2D" node_paths=PackedStringArray("gear", "gear2", "lever", "tip")]
+texture = ExtResource("1_ir3kx")
+script = ExtResource("2_nkdlx")
+cutting = true
+gear = NodePath("Gear")
+gear2 = NodePath("Gear2")
+lever = NodePath("Shaft1")
+tip = NodePath("WoodenCylinder")
+
+[node name="Gear" type="Sprite2D" parent="."]
+position = Vector2(-1, -12)
+texture = ExtResource("3_wvyd7")
+
+[node name="Leftdownelbow" type="Sprite2D" parent="."]
+position = Vector2(23, 6)
+texture = ExtResource("3_pym2g")
+
+[node name="WoodenCylinder" type="Sprite2D" parent="."]
+position = Vector2(46, 0.999999)
+rotation = 0.785397
+scale = Vector2(-1, 1)
+texture = ExtResource("4_4iy3f")
+
+[node name="2Kg" type="Sprite2D" parent="."]
+texture = ExtResource("1_ir3kx")
+
+[node name="Shaft1" type="TextureRect" parent="."]
+offset_left = -2.0
+offset_top = -4.0
+offset_right = 33.0
+offset_bottom = 3.0
+pivot_offset = Vector2(35, 3)
+texture = ExtResource("4_yn253")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="WoodenCylinder2" type="Sprite2D" parent="Shaft1"]
+position = Vector2(32, 4)
+texture = ExtResource("5_1xjvj")
+
+[node name="Gear2" type="Sprite2D" parent="."]
+position = Vector2(-1, -1)
+texture = ExtResource("6_a1qjq")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_0jw6k")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

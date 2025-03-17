@@ -10,12 +10,13 @@ var Wood = 10
 var Gold = 400
 var Coin = 0
 var Production = 0
-var Ammo = 0
+var Ammo = 1000
 var Profit_margin = 100 # $/L
 var counter = 0
 var previous_margin 
 var selected_body
 var Food = 100
+#var Wood = 0
 
 func gen_rand(x,y):
 	var rng = RandomNumberGenerator.new()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://cld4583sbxcc4"]
+[gd_scene load_steps=31 format=3 uid="uid://cld4583sbxcc4"]
 
 [ext_resource type="Script" path="res://Scripts/world.gd" id="1_ccfvt"]
 [ext_resource type="PackedScene" uid="uid://cqf2vrbyeo0ux" path="res://scenes/UI.tscn" id="1_ii5xf"]
@@ -22,6 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://bcsnt0nlymy8s" path="res://scenes/mirror.tscn" id="16_owmjp"]
 [ext_resource type="PackedScene" uid="uid://17dtd8w3jwee" path="res://scenes/canon.tscn" id="17_uuk4u"]
 [ext_resource type="PackedScene" uid="uid://c443mv1x1ki7r" path="res://scenes/target.tscn" id="18_rgbob"]
+[ext_resource type="PackedScene" uid="uid://bjak3fxf8xfct" path="res://scenes/wood_cutter.tscn" id="23_r8aja"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_en5in"]
 bg_color = Color(0, 0, 0, 0.611765)
@@ -1184,6 +1185,7 @@ position = Vector2(137, 175)
 
 [node name="canon" parent="." instance=ExtResource("17_uuk4u")]
 position = Vector2(174, 116)
+activated = true
 
 [node name="animal" parent="." instance=ExtResource("18_rgbob")]
 position = Vector2(371, 217)
@@ -1199,3 +1201,19 @@ position = Vector2(276, 236)
 
 [node name="animal3" parent="." instance=ExtResource("18_rgbob")]
 position = Vector2(176, 226)
+
+[node name="resource" parent="." instance=ExtResource("7_pog63")]
+position = Vector2(218, 122)
+
+[node name="resource2" parent="." instance=ExtResource("7_pog63")]
+position = Vector2(98, 209)
+
+[node name="resource3" parent="." instance=ExtResource("7_pog63")]
+position = Vector2(224, 252)
+
+[node name="resource4" parent="." instance=ExtResource("7_pog63")]
+position = Vector2(29, 188)
+
+[node name="2Kg" parent="." instance=ExtResource("23_r8aja")]
+position = Vector2(165, 65)
+cutting = false
