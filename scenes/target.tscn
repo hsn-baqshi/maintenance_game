@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://c443mv1x1ki7r"]
+[gd_scene load_steps=10 format=3 uid="uid://c443mv1x1ki7r"]
 
 [ext_resource type="Script" path="res://Scripts/target.gd" id="1_7ryt0"]
 [ext_resource type="Texture2D" uid="uid://dmvctyxus0fx6" path="res://assets/objects/elephant_clock/outside_frame.png" id="2_ow10i"]
@@ -27,13 +27,13 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hqg6j"]
 size = Vector2(46, 52)
 
-[node name="animal" type="RigidBody2D" node_paths=PackedStringArray("health_bar", "splash", "labelee", "anim", "small_circle") groups=["target"]]
+[sub_resource type="CircleShape2D" id="CircleShape2D_8u6ga"]
+radius = 90.1998
+
+[node name="animal" type="CharacterBody2D" node_paths=PackedStringArray("health_bar", "splash", "labelee", "anim", "small_circle") groups=["target"]]
 collision_layer = 5
 collision_mask = 5
 input_pickable = true
-mass = 0.001
-gravity_scale = 0.0
-lock_rotation = true
 script = ExtResource("1_7ryt0")
 health_bar = NodePath("ProgressBar")
 splash = NodePath("CPUParticles2D")
@@ -99,7 +99,18 @@ offset_bottom = 39.0
 theme_override_font_sizes/font_size = 8
 text = "MouseEnter : False/true"
 
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[node name="target_range" type="Area2D" parent="."]
+collision_layer = 5
+collision_mask = 5
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="target_range"]
+shape = SubResource("CircleShape2D_8u6ga")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+debug_enabled = true
+
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="target_range" to="." method="_on_target_range_body_entered"]
+[connection signal="body_exited" from="target_range" to="." method="_on_target_range_body_exited"]
