@@ -9,7 +9,7 @@ size = Vector2(12, 36)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_llrqw"]
 size = Vector2(28, 39)
 
-[node name="RigidBody2D" type="RigidBody2D" node_paths=PackedStringArray("smoke", "coll")]
+[node name="RigidBody2D" type="RigidBody2D" node_paths=PackedStringArray("smoke", "coll") groups=["targeto"]]
 mass = 100.0
 gravity_scale = 0.0
 script = ExtResource("1_vcgit")

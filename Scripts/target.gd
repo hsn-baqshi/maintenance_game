@@ -39,7 +39,7 @@ func _process(delta: float) -> void:
 
 	counter += delta
 	if counter > 1 :
-		linear_velocity = 5*Vector2(x,y)
+		#linear_velocity = 5*Vector2(x,y)
 		if counter > 2 :
 			counter = 0
 			x = gen_rand(-20,20)

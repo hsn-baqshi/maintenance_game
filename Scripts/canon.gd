@@ -44,15 +44,15 @@ func _process(delta: float) -> void:
 				print("I am past counter 5 ")
 				counter = 0
 				var head_direction= Vector2.from_angle(head.rotation-PI/2)
-				var tech = tech_unit.instantiate()
-				print("the angle is  ",head.rotation)
-				recoil(head_direction)
-				tech.global_position = global_position
-				tech.linear_velocity = 500*head_direction.normalized()
-				get_parent().add_child(tech)
+				recoil(head_direction,500)
 
-func recoil(direction):
+func recoil(direction,powerr=100):
 	head.play("shoot")
+	var tech = tech_unit.instantiate()
+	#tech.position = global_position
+	tech.global_position = global_position
+	tech.linear_velocity = powerr*direction.normalized()
+	get_parent().add_child(tech)
 
 func _input(event: InputEvent) -> void:
 	if activated :
@@ -67,12 +67,7 @@ func _input(event: InputEvent) -> void:
 			charging = false
 			var head_direction = get_global_mouse_position() - global_position
 			print("the head direction is ",head_direction)
-			var tech = tech_unit.instantiate()
-			recoil(head_direction)
-			#tech.position = global_position
-			tech.global_position = global_position
-			tech.linear_velocity = power*head_direction.normalized()
-			get_parent().add_child(tech)
+			recoil(head_direction,power)
 			power = 0
 		if select and event.is_action_pressed("RightClick") and Game.Ammo > 0:
 			Game.Ammo -= 1
